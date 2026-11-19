@@ -1,188 +1,371 @@
-# LocalLLM Benchmark: Local Model Inference and Quantisation Optimisation
-### Task 3 Technical Evaluation – tndrr AI Internship Assignment
+# Applied-AI-Lab – Applied AI & LLM Engineering Projects
 
-[![Model: Qwen2.5-1.5B-Instruct](https://img.shields.io/badge/Model-Qwen2.5--1.5B--Instruct-blue.svg)](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF)
-[![Runtime: llama.cpp](https://img.shields.io/badge/Runtime-llama.cpp%20b12532-orange.svg)](https://github.com/ggml-org/llama.cpp)
-[![Format: GGUF v3](https://img.shields.io/badge/Format-GGUF%20v3-green.svg)](https://github.com/ggerganov/ggml)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](LICENSE)
+A collection of three applied AI engineering projects developed as part of the Tndrr AI Internship Assignment.
 
----
+The repository demonstrates practical implementation and evaluation of customer support automation, Retrieval-Augmented Generation (RAG), and Large Language Model (LLM) optimisation.
 
-## 1. Executive Summary
+## Project Overview
 
-This project delivers a complete, reproducible technical implementation of **Task 3: Local Model Inference and Quantisation Optimisation**. It benchmarks and evaluates **`Qwen/Qwen2.5-1.5B-Instruct`** in two quantisation configurations:
-- **Configuration A:** `Q4_K_M` (4-bit Medium K-quantisation, ~1.04 GB weights)
-- **Configuration B:** `Q8_0` (8-bit standard integer quantisation, ~1.89 GB weights)
-
-Both configurations are evaluated using **official `llama.cpp` Windows binaries (b12532)** with identical inference parameters across **10 original multi-disciplinary evaluation prompts**.
-
-### Key Technical Findings:
-1. **Inference Throughput:** `Q4_K_M` delivers **26.57 tokens/s**, representing a **+45.75% generation speedup** over `Q8_0` (18.23 tokens/s) on the AMD Ryzen 5 5600H CPU due to reduced memory-bus saturation in the bandwidth-bound decoding regime.
-2. **Prompt Processing (Prefill):** `Q4_K_M` achieves **90.89 tokens/s** prompt prefill, operating **+98.41% faster (~2×)** than `Q8_0` (45.81 tokens/s).
-3. **Storage & Memory Footprint:** `Q4_K_M` weighs **1.041 GB** vs **1.764 GB** on disk (**-40.99% storage savings**), with process peak RAM maintained at **1.65 GB**.
-4. **Reasoning Quality:** On a 10-point multi-disciplinary rubric spanning logic, math, coding, JSON schema, and negative constraint following, `Q4_K_M` achieved **9.20 / 10** vs **8.95 / 10** for `Q8_0` (100% functional retention).
-5. **Hardware Backend:** CPU vectorized inference (AVX2/FMA with 6 OpenMP threads) provides rock-solid deterministic performance. Vulkan acceleration is detected on the discrete AMD Radeon RX 6500M (4 GB VRAM) as an optional offload backend.
-
-### Consolidated Performance Comparison Table
-
-| Metric | Configuration A (`Q4_K_M`) | Configuration B (`Q8_0`) | Delta / Relative Change |
-| :--- | :--- | :--- | :--- |
-| **Model Weight File Size** | **1.041 GB** | **1.764 GB** | **-40.99% (-0.723 GB saved on disk)** |
-| **Mean Generation Throughput** | **26.57 t/s** ($\sigma = 0.64$) | **18.23 t/s** ($\sigma = 0.61$) | **+45.75% higher generation speed (+8.34 t/s)** |
-| **Mean Prompt Processing Speed** | **90.89 t/s** ($\sigma = 5.21$) | **45.81 t/s** ($\sigma = 1.11$) | **+98.41% faster prompt prefill (+45.08 t/s)** |
-| **Average End-to-End Latency** | **11.78 s** ($\sigma = 3.46$) | **16.34 s** ($\sigma = 4.76$) | **-27.91% lower latency (-4.56 s faster)** |
-| **Peak Process RAM Consumption** | **1.650 GB** (Mean: 1.643 GB) | **1.680 GB** (Mean: 1.673 GB) | **-1.79% lower peak RAM** |
-| **Average Quality Score (out of 10)**| **9.20 / 10** | **8.95 / 10** | **+2.79% quality retention** |
-| **Request Reliability** | **10/10 (100% success)** | **10/10 (100% success)** | **100% stable execution across all prompts** |
+| Task | Project | Core Focus |
+|---|---|---|
+| Task 1 | SupportIQ | Customer support classification using LoRA fine-tuning |
+| Task 2 | DisasterRAG | Document-grounded question answering using RAG |
+| Task 3 | LLM Optimisation | Quantisation, inference benchmarking and efficient LLM serving |
 
 ---
 
-## 2. Hardware Environment Profile
+# Task 1 – SupportIQ
 
-The benchmarking suite automatically detects and profiles the host environment:
+**Customer Support Ticket Classification using LoRA Fine-Tuning**
 
-| Property | Value |
-| :--- | :--- |
-| **System Model** | HP Victus 15-fb0xxx Laptop |
-| **Operating System** | Windows 11 Home 64-bit (10.0.26200) |
-| **Processor (CPU)** | AMD Ryzen 5 5600H with Radeon Graphics (Zen 3, 6 physical cores / 12 threads) |
-| **SIMD Extensions** | AVX, AVX2, FMA, F16C |
-| **Host System RAM** | 16.0 GB (15.34 GB visible, ~5.4 GB available during testing) |
-| **Dedicated GPU** | AMD Radeon(TM) RX 6500M (4,080 MiB VRAM, Vulkan 1.3, Navi 24 RDNA2) |
-| **Integrated GPU** | AMD Radeon(TM) Graphics (8,111 MiB shared memory, Vulkan 1.3) |
-| **Development Storage**| Drive D: (NVMe SSD, 145 GB available space for model hosting) |
-| **Python Runtime** | Python 3.12.2 (AMD64) |
+SupportIQ is a customer support triage system that classifies incoming customer messages across three dimensions:
 
-*Full hardware telemetry is saved to [`results/hardware_profile.json`](file:///c:/Users/hp/OneDrive/Desktop/RAG/LLM%20Optimization/Task-3-LLM-Optimisation/results/hardware_profile.json).*
+- Category – identifies the type of customer issue.
+- Priority – determines the urgency of the issue.
+- Sentiment – identifies the customer's emotional tone.
+
+### Technologies
+
+- Python
+- Qwen2.5-0.5B-Instruct
+- PyTorch
+- Hugging Face Transformers
+- PEFT / LoRA
+- Pandas and Scikit-learn
+
+### Important Files
+
+| File | Purpose |
+|---|---|
+| `train.py` | LoRA fine-tuning pipeline |
+| `inference.py` | Runs model inference on support tickets |
+| `evaluate.py` | Evaluates classification performance |
+| `generate_data.py` | Generates or prepares training data |
+| `validate_data.py` | Validates dataset structure and labels |
+| `memory_estimate.py` | Estimates training memory requirements |
+| `train.jsonl` | Training dataset |
+| `validation.jsonl` | Validation dataset |
+| `test.jsonl` | Test dataset |
+| `predictions.csv` | Model predictions and evaluation comparisons |
+| `evaluation.json` | Evaluation metrics |
+| `failure_analysis.md` | Analysis of classification errors |
+| `priority_errors.csv` | Priority classification errors |
+| `priority_errors_detailed.csv` | Detailed priority error analysis |
+| `combined_priority_audit.csv` | Combined priority review candidates |
+| `manual_priority_review.csv` | Manual priority review records |
+| `TASK1_VERIFICATION_REPORT.md` | Task 1 verification report |
+
+### Evaluation Results
+
+| Metric | Result |
+|---|---:|
+| Category accuracy | 94.89% |
+| Priority accuracy | 68.61% |
+| Sentiment accuracy | 91.24% |
+| Mean field accuracy | 84.91% |
+| Exact-match accuracy | 59.12% |
+| JSON parsing success | 100% |
+
+The results demonstrate strong category and sentiment classification, while priority prediction remains an area for improvement.
 
 ---
 
-## 3. Repository Architecture
+# Task 2 – DisasterRAG
 
-```
-Task-3-LLM-Optimisation/
+**Retrieval-Augmented Generation for Disaster Management Guidelines**
+
+DisasterRAG is a document-grounded question-answering system designed to retrieve relevant information from disaster management guidelines and provide context-aware responses.
+
+The implementation uses NDMA documents as its knowledge source.
+
+### Technologies
+
+- Python
+- Retrieval-Augmented Generation
+- Text embeddings
+- FAISS / NumPy
+- Hybrid retrieval
+- Streamlit
+
+### Important Source Files
+
+| File | Purpose |
+|---|---|
+| `document_loader.py` | Loads and extracts source documents |
+| `text_cleaner.py` | Cleans extracted document text |
+| `chunking.py` | Splits documents into retrieval chunks |
+| `embeddings.py` | Generates vector embeddings |
+| `vector_store.py` | Manages vector storage and similarity search |
+| `retrieval.py` | Performs document retrieval |
+| `hybrid_retrieval.py` | Implements hybrid retrieval |
+| `answer_generator.py` | Generates answers using retrieved context |
+| `rag_pipeline.py` | Connects the RAG processing stages |
+| `streamlit_app.py` | Provides the interactive application |
+
+### Important Data and Evaluation Files
+
+| File | Purpose |
+|---|---|
+| `extracted_pages.jsonl` | Extracted document page content |
+| `chunks_300.jsonl` | Document chunks using a 300-token configuration |
+| `chunks_600.jsonl` | Document chunks using a 600-token configuration |
+| `embeddings_300.npy` | Embeddings for the 300-token chunks |
+| `embeddings_600.npy` | Embeddings for the 600-token chunks |
+| `evaluation_questions.json` | Evaluation questions |
+| `question_results.csv` | Question-level evaluation results |
+| `recall_comparison.json` | Retrieval recall comparison |
+| `hybrid_comparison.json` | Hybrid retrieval comparison |
+| `recall_comparison.png` | Retrieval performance visualisation |
+| `TASK2_VERIFICATION_REPORT.md` | Task 2 verification report |
+
+### Evaluation Results
+
+| Metric | Result |
+|---|---:|
+| Source documents | 4 |
+| Total document pages | 488 |
+| Evaluation questions | 15 |
+| Recall@5 | 80% |
+
+The project also includes retrieval failure analysis and comparisons of retrieval configurations.
+
+---
+
+# Task 3 – LLM Optimisation
+
+**Local Model Inference and Quantisation Optimisation**
+
+This project explores practical techniques for improving local LLM inference efficiency while balancing model quality, storage requirements, memory consumption and generation speed.
+
+The experiments compare two GGUF quantisation configurations of Qwen2.5-1.5B-Instruct.
+
+### Technologies
+
+- Python
+- Qwen2.5-1.5B-Instruct
+- GGUF
+- llama.cpp
+- Q4_K_M and Q8_0 quantisation
+- CPU/Vulkan inference
+- Hardware and memory monitoring
+
+### Important Source Files
+
+| File | Purpose |
+|---|---|
+| `hardware_detection.py` | Detects CPU, GPU and system hardware |
+| `model_manager.py` | Manages model acquisition and verification |
+| `inference.py` | Runs local LLM inference |
+| `memory_monitor.py` | Tracks memory consumption |
+| `quality_evaluation.py` | Evaluates model output quality |
+| `benchmark.py` | Executes performance benchmarks |
+| `benchmark_analysis.ipynb` | Interactive benchmark analysis |
+
+### Configuration and Evaluation Files
+
+| File | Purpose |
+|---|---|
+| `benchmark_prompts.json` | Ten model evaluation prompts |
+| `hardware_profile.json` | Hardware profile and system information |
+| `benchmark_results.csv` | Tabular benchmark results |
+| `benchmark_results.json` | Detailed benchmark measurements |
+| `quality_comparison.csv` | Model output and quality comparison |
+| `quality_comparison.json` | Structured quality evaluation |
+| `requirements.txt` | Python dependencies |
+
+### Reports and Visualisations
+
+| File | Purpose |
+|---|---|
+| `benchmark_analysis.md` | Performance and memory analysis |
+| `kv_cache_explanation.md` | KV-cache and quantisation explanation |
+| `concurrent_serving_plan.md` | Proposed architecture for 20 concurrent users |
+| `performance_comparison.png` | Throughput comparison |
+| `memory_comparison.png` | Memory comparison |
+| `quality_comparison.png` | Quality comparison |
+| `TASK3_VERIFICATION_REPORT.md` | Task 3 verification report |
+
+### Recorded Benchmark Results
+
+| Metric | Q4_K_M | Q8_0 |
+|---|---:|---:|
+| Model size | 1.041 GB | 1.764 GB |
+| Generation speed | 26.57 tok/s | 18.23 tok/s |
+| Prompt processing | 90.89 tok/s | 45.81 tok/s |
+| Average latency | 11.78 s | 16.34 s |
+| Peak RAM | 1.65 GB | 1.68 GB |
+| Quality score | 9.20/10 | 8.95/10 |
+
+These are recorded experimental results. The quality scores are based on the project's evaluation rubric and should not be interpreted as general-purpose model-quality scores.
+
+### Optimisation Areas
+
+1. Quantisation and model-size reduction.
+2. Inference throughput and latency measurement.
+3. Memory monitoring and KV-cache analysis.
+4. Quality comparison across quantisation configurations.
+5. A proposed 20-user serving architecture on a 24-GB GPU.
+
+The concurrent-serving architecture is a design proposal, not a claim of completed 20-user load testing.
+
+---
+
+# Repository Structure
+
+The intended final repository organisation is:
+
+```text
+RAG-TAG/
 │
-├── models/                          # Model documentation & storage specification
+├── README.md
+├── .gitignore
+│
+├── Task-1-SupportIQ/
+│   ├── src/
+│   │   ├── train.py
+│   │   ├── inference.py
+│   │   ├── evaluate.py
+│   │   ├── generate_data.py
+│   │   ├── validate_data.py
+│   │   └── memory_estimate.py
+│   ├── data/
+│   │   ├── train.jsonl
+│   │   ├── validation.jsonl
+│   │   └── test.jsonl
+│   ├── outputs/
+│   ├── results/
+│   ├── reports/
 │   └── README.md
 │
-├── data/                            # Evaluation dataset
-│   └── benchmark_prompts.json       # 10 capability test prompts with rubrics
+├── Task-2-DisasterRAG/
+│   ├── src/
+│   │   ├── document_loader.py
+│   │   ├── text_cleaner.py
+│   │   ├── chunking.py
+│   │   ├── embeddings.py
+│   │   ├── vector_store.py
+│   │   ├── retrieval.py
+│   │   ├── hybrid_retrieval.py
+│   │   ├── answer_generator.py
+│   │   └── rag_pipeline.py
+│   ├── app/
+│   │   └── streamlit_app.py
+│   ├── data/
+│   ├── results/
+│   ├── reports/
+│   └── README.md
 │
-├── src/                             # Modular Python benchmarking engine
-│   ├── hardware_detection.py        # System topology & Vulkan/CPU backend detection
-│   ├── model_manager.py             # GGUF acquisition, SHA-256 & architectural parity checks
-│   ├── inference.py                 # Common llama.cpp interface & telemetry parser
-│   ├── memory_monitor.py            # Real-time process RAM & peak memory tracker
-│   ├── quality_evaluation.py        # Automated rubric & rule-based quality scorer
-│   └── benchmark.py                 # End-to-end benchmark orchestrator & chart generator
-│
-├── results/                         # Machine-readable outputs & visual charts
-│   ├── hardware_profile.json        # Detailed host hardware telemetry
-│   ├── benchmark_results.json       # Full raw timings, tokens, and summary statistics
-│   ├── benchmark_results.csv        # Tabular performance metrics
-│   ├── quality_comparison.csv       # Side-by-side prompt outputs, scores & observations
-│   ├── quality_comparison.json      # Structured quality comparison dataset
-│   ├── performance_comparison.png   # Generation vs. Prefill Tokens/Second chart
-│   ├── memory_comparison.png        # Storage vs. Active Peak RAM chart
-│   └── quality_comparison.png       # 10-prompt capability score breakdown chart
-│
-├── reports/                         # Deep technical documentation
-│   ├── benchmark_analysis.md        # Comprehensive performance & memory analysis
-│   ├── kv_cache_explanation.md      # Mathematical derivation of KV Cache & Quantisation
-│   └── concurrent_serving_plan.md   # Production plan: 20 users on a 24 GB GPU
-│
-├── notebooks/                       # Interactive exploration
-│   └── benchmark_analysis.ipynb     # Jupyter notebook reproducing all data & plots
-│
-├── tools/                           # llama.cpp official release binaries (b12532)
-│   ├── llama-cpu/                   # AVX2 CPU binaries
-│   └── llama-vulkan/                # Vulkan AMD GPU binaries
-│
-├── requirements.txt                 # Python dependencies
-├── README.md                        # Project technical manual
-└── .gitignore                       # Clean Git configuration (models excluded)
+└── Task-3-LLM-Optimisation/
+    ├── src/
+    │   ├── hardware_detection.py
+    │   ├── model_manager.py
+    │   ├── inference.py
+    │   ├── memory_monitor.py
+    │   ├── quality_evaluation.py
+    │   └── benchmark.py
+    ├── data/
+    │   └── benchmark_prompts.json
+    ├── notebooks/
+    │   └── benchmark_analysis.ipynb
+    ├── results/
+    ├── reports/
+    ├── tools/
+    ├── requirements.txt
+    └── README.md
 ```
+
+*This is the target structure. File paths should be updated after the repository has been reorganised.*
 
 ---
 
-## 4. Quick Start & Execution
+# Installation and Usage
 
-### Prerequisites
-Clone or navigate to the project directory and install the lightweight Python dependencies:
+## Clone the Repository
+
+```bash
+git clone https://github.com/Ajayso03/RAG-TAG.git
+cd RAG-TAG
+```
+
+## Navigate to a Project
+
+For SupportIQ:
+
+```bash
+cd Task-1-SupportIQ
+```
+
+For DisasterRAG:
+
+```bash
+cd Task-2-DisasterRAG
+```
+
+For LLM Optimisation:
+
+```bash
+cd Task-3-LLM-Optimisation
+```
+
+## Install Dependencies
+
+Each task should maintain its own `requirements.txt` to avoid dependency conflicts.
+
+```bash
+python -m venv .venv
+```
+
+Windows:
 
 ```powershell
-cd "c:\Users\hp\OneDrive\Desktop\RAG\LLM Optimization\Task-3-LLM-Optimisation"
+.venv\Scripts\activate
+```
+
+Install the task-specific dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 1. Run Hardware Detection
-```powershell
-python src/hardware_detection.py
-```
-
-### 2. Verify Models & GGUF Parity
-```powershell
-python src/model_manager.py
-```
-
-### 3. Run the Complete Benchmark Suite
-Execute the entire evaluation (both models, all 10 prompts, memory tracking, quality evaluation, and chart generation) with a single command:
-
-```powershell
-python src/benchmark.py --backend cpu --threads 6
-```
-
-Optional arguments:
-- `--backend`: Choose `cpu` (default) or `vulkan` (AMD RX 6500M GPU).
-- `--threads`: OpenMP execution threads (default: `6`).
-- `--quants`: Target quantisations (default: `Q4_K_M Q8_0`).
+Refer to each task's README for exact model downloads, dataset preparation, environment configuration and execution commands.
 
 ---
 
-## 5. Benchmarking Methodology & Evaluation Prompts
+# Reproducibility and Project Integrity
 
-The benchmark evaluates the model across 10 distinct cognitive and technical capabilities defined in [`data/benchmark_prompts.json`](file:///c:/Users/hp/OneDrive/Desktop/RAG/LLM%20Optimization/Task-3-LLM-Optimisation/data/benchmark_prompts.json):
-
-1. **General Reasoning (`PROMPT-01`):** Deductive seating arrangement with negative constraints.
-2. **Python Programming (`PROMPT-02`):** `find_top_k_frequent` with type annotations, docstring, and syntax validation.
-3. **Mathematical Problem Solving (`PROMPT-03`):** Two-step compounding percentage discount calculation.
-4. **Text Summarisation (`PROMPT-04`):** Strict 2-sentence constraint covering quantum superposition and post-quantum cryptography.
-5. **Structured JSON Generation (`PROMPT-05`):** Pure JSON extraction with strict schema and zero conversational prose.
-6. **Technical Explanation (`PROMPT-06`):** TCP vs. UDP protocols structured across 3 labeled technical sections.
-7. **Logical Reasoning (`PROMPT-07`):** Formal logic premises evaluating Modus Tollens and avoiding Denying the Antecedent.
-8. **Information Extraction (`PROMPT-08`):** Invoice parsing into line items, quantities, tax, and totals.
-9. **Instruction Following (`PROMPT-09`):** 5 strict positive and negative constraints (length, start word, forbidden words, exact ending).
-10. **Multi-Step Problem Solving (`PROMPT-10`):** Multi-developer sprint capacity arithmetic, overhead deduction, and backlog feasibility.
+- Evaluation datasets and test splits should be preserved.
+- Benchmark results should be traceable to their scripts and configurations.
+- Large model weights and temporary checkpoints should be excluded from Git when appropriate.
+- API keys, credentials and private configuration files must never be committed.
+- Generated Python cache files (`__pycache__` and `.pyc`) should be excluded.
+- Measured results must be distinguished from proposed deployment designs.
 
 ---
 
-## 6. Technical Explanations
+# Key Learning Outcomes
 
-### A. KV Cache Architecture
-Autoregressive language models generate tokens sequentially. To prevent recomputing historical Key and Value representations for all previous tokens at quadratic complexity $\mathcal{O}(N^2)$, the attention layers store past Key and Value projection states in a dedicated **KV Cache**.
+These projects demonstrate practical experience in:
 
-The general memory consumption formula for a Grouped-Query Attention (GQA) cache is:
-
-$$\text{Memory}_{\text{KV}} = 2 \times L \times H_{KV} \times d_{\text{head}} \times S_{\text{ctx}} \times P_{\text{bytes}} \times B$$
-
-Where $L$ is layer count, $H_{KV}$ is KV head count, $d_{\text{head}}$ is head dimension, $S_{\text{ctx}}$ is cached token count, $P_{\text{bytes}}$ is precision bytes (2.0 for FP16), and $B$ is batch size.
-
-*Read the full mathematical derivation in [`reports/kv_cache_explanation.md`](file:///c:/Users/hp/OneDrive/Desktop/RAG/LLM%20Optimization/Task-3-LLM-Optimisation/reports/kv_cache_explanation.md).*
-
-### B. Quantisation Mechanics
-Quantisation maps continuous floating-point weights to low-bit integers (e.g., INT8 or 4-bit k-quants) using block-level scaling factors. In memory-bandwidth-bound single-user inference, quantisation dramatically reduces the volume of bytes that must cross the memory bus for every token generated, directly increasing generation throughput.
+- Fine-tuning language models using LoRA.
+- Building and evaluating classification systems.
+- Designing document-grounded RAG pipelines.
+- Implementing embedding-based and hybrid retrieval.
+- Comparing LLM quantisation configurations.
+- Benchmarking inference throughput, latency and memory.
+- Analysing KV-cache requirements.
+- Designing scalable LLM serving architectures.
 
 ---
 
-## 7. Serving 20 Concurrent Users on a 24 GB GPU
+# Author
 
-[`reports/concurrent_serving_plan.md`](file:///c:/Users/hp/OneDrive/Desktop/RAG/LLM%20Optimization/Task-3-LLM-Optimisation/reports/concurrent_serving_plan.md) provides a comprehensive production architecture for serving 20 simultaneous users on an enterprise 24 GB GPU (e.g. RTX 4090 / A10G) using **`Qwen2.5-7B-Instruct`** in 4-bit AWQ with **vLLM** and **PagedAttention**:
+**Ajay Soren**
 
-- **Model Weights (AWQ 4-bit):** 4.97 GB (20.2%)
-- **Active KV Cache Pool (20 users × 4,096 context):** 4.70 GB (19.1%)
-- **Runtime Activations & PyTorch Context:** 2.20 GB (8.9%)
-- **Dynamic PagedAttention Expansion Headroom:** 9.71 GB (39.5%)
-- **Safety OOM Reserve:** 3.00 GB (12.3%)
-- **Total VRAM:** **24.58 GB (100.0%)**
+B.Tech – Computer Science and Engineering
 
-The architecture features iteration-level continuous batching, chunked prefill (512 tokens), HTTP 429 admission control, and dynamic FP8 KV cache fallback.
+- GitHub: https://github.com/Ajayso03
+- Repository: https://github.com/Ajayso03/RAG-TAG
+
+---
+
+*Applied AI and LLM engineering projects focused on implementation, evaluation, optimisation and reproducibility.*
