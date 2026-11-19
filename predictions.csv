@@ -1,0 +1,692 @@
+id,input,expected_category,expected_priority,expected_sentiment,base_raw_output,base_category,base_priority,base_sentiment,base_exact_match,finetuned_raw_output,finetuned_category,finetuned_priority,finetuned_sentiment,finetuned_exact_match
+supp_0851,inquiry: how do i merge two individual accounts under a single corporate workspace without losing project history? please advise.,account,medium,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical Support,High,Negative,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",account,medium,neutral,True
+supp_1137,Can someone explain this? Would be nice if the courier sent an SMS reminder in addition to the email notification. Fix this asap.,shipping,low,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""medium"", ""sentiment"": ""negative""}",shipping,medium,negative,False
+supp_1313,Freight consignment #71709 required a liftgate at delivery but the driver arrived in a standard truck and refused delivery. Reschedule priority freight with liftgate.,shipping,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,False
+supp_0919,Hey there! Really appreciate your fast account security alerts! I received an alert and want to quickly reset my master 2FA keys with your help. Thanks so much!,account,high,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""positive""}",account,medium,positive,False
+supp_1099,"Hi, Which courier services do you partner with for standard regional deliveries? Thanks.",shipping,low,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,True
+supp_1246,Package #47917 was left out in the rain by the courier despite explicit instructions to place it inside the parcel locker.,shipping,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Service,High,-,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,False
+supp_0327,Can someone explain this? You just debited my card without my consent for an annual renewal that I explicitly cancelled last week. This is fraudulent. Reverse the charge today! Not happy about this.,billing,high,negative,"```json
+{
+  ""category"": ""Fraud"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-50%""
+}
+```",Fraud,High,-50%,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,True
+supp_1366,"The courier delivered a crushed, soaking wet box for order #70548. The fragile glass contents inside are completely shattered! I need a replacement dispatched immediately!",shipping,high,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-1""
+}",Customer Service,High,-1,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,True
+supp_0014,Everything looks wonderful on our latest statement. Thanks for the seamless billing experience!,billing,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Positive,High,Positive,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""positive""}",billing,low,positive,True
+supp_0592,Good morning! Huge fans of your platform! Unfortunately our staging environment hit a critical deadlock after today's release. Excited to see this resolved. Thanks so much!,technical,high,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""positive""}",technical,high,positive,True
+supp_0723,Does changing my profile timezone automatically alter timestamp displays across reports?,account,low,neutral,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""neutral""}",account,low,neutral,True
+supp_0547,"hey, the export to csv button is broken on the analytics dashboard. clicking it does nothing and the browser console shows an uncaught typeerror. not happy about this.",technical,medium,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical,High,-,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,False
+supp_0285,Payment gateway failed during transaction for invoice #82487. Please hold the account suspension while we wire the payment directly.,billing,high,neutral,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical,High,-,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,False
+supp_1062,Good morning! My package arrived two days earlier than expected! Fantastic delvery service as always. Have a wonderful day!,shipping,low,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""positive""}",shipping,low,positive,True
+supp_0468,Hope you are doing great! The new API response times are fantastic! We just ran into a small query parameter issue when paginating results beyond page 50. Thanks so much!,technical,medium,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""positive""}",technical,medium,positive,True
+supp_1288,"Hi team, Thanks so much for your great customer care. We have an urgnt order #23768 that we'd love to upgrade to priority overnight shipping if still possible. Best regards.",shipping,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""positive""}",shipping,high,positive,True
+supp_0370,"hello support crew, loving the keyboard shortcuts feature! makes navigating the dashboard such a breeze. appreciate your help as always.",technical,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Positive,High,Positive,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""positive""}",technical,low,positive,True
+supp_0885,Extremely frustrated here. The profile picture upload keeps failing with 'Upload Error' even though the JPG image is only 500 KB. Resolve this now!,account,medium,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Support,High,-,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,False
+supp_0898,"Hey, Why can't I delete my accnt from the user settings? The delete button is greyed out without any explanation. This is ridiculous.",account,medium,negative,"{
+  ""category"": ""User Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-50%""
+}",User Support,High,-50%,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""negative""}",account,low,negative,False
+supp_1017,"Listen, I am completely locked out of my master administrative account and the 2FA authenticator app is not accepting my security codes. We cant manage our team! This is ridiculous.",account,high,negative,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-50%""
+}",Technical Support,High,-50%,False,"{""category"": ""account"", ""priority"": ""high"", ""sentiment"": ""negative""}",account,high,negative,True
+supp_0671,"Listen, Our production API keys are failing authentication continuously. All background webhooks have stopped. This is causing significant revenue loss every minute! Resolve this now!",technical,high,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,True
+supp_0628,webhook delivry endpoint is receiving http 504 gateway timeouts from your server cluster. urgnt diagnostics needed. thanks.,technical,high,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical Support,High,Negative,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""neutral""}",technical,high,neutral,True
+supp_1249,"Hey, Package #16329 was left out in the rain by the courier despite explicit instructions to place it inside the parcel locker. Not happy about this.",shipping,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5""
+}",Customer Service,High,-5,False,"{""category"": ""shipping"", ""priority"": ""medium"", ""sentiment"": ""negative""}",shipping,medium,negative,True
+supp_0920,Hey there! Really appreciate your fast acount security alerts! I received an alert and want to quickly reset my master 2FA keys with your help. Have a wonderful day!,account,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,False
+supp_0117,Thank you for the prompt srvice. Could you please send over the official receipt for invoice #40775 when convenient?,billing,medium,positive,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Request,High,Positive,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""positive""}",billing,low,positive,False
+supp_0346,Your API documentation is by far the cleanest I have worked with this year. Keep up the brilliant engineering!,technical,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": 5,
+  ""sentiment"": ""Positive""
+}",Positive,5,Positive,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""positive""}",technical,low,positive,True
+supp_0209,The discount code SAVE20 was not applied to my cart even though it said valid. I was charged the full $149.,billing,medium,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Support,High,-,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""negative""}",billing,low,negative,False
+supp_0961,Organization owner has left the company. We require legal transfer of the primary tenant account to the new chief executive. Thanks.,account,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""positive""}",account,medium,positive,False
+supp_0375,"Hello, Loving the keyboard shortcuts feature! Makes navigating the dashboard such a breeze. Have a wonderful day!",technical,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": 5,
+  ""sentiment"": ""Positive""
+}",Positive,5,Positive,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""positive""}",technical,low,positive,True
+supp_0698,Really pleased with how straightforward accnt management is on your platform!,account,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": 5,
+  ""sentiment"": ""Positive""
+}",Positive,5,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,True
+supp_0222,Attention: Why was I charged a late fee of $2450 when my payment went through on the due date? Please credit this back to my account. Please resolve this immediately.,billing,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,False
+supp_0833,Good morning! Thank you for helping us set up the account last month. Everything is going great; just wanted to add a secondary administrator. Many thanks.,account,medium,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,False
+supp_1356,"listen, the courier delivered a crushed, soaking wet box for order #78623. the fragile glass contents inside are completely shattered! i need a replacement dispatched immediately! fix this asap.",shipping,high,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,True
+supp_0257,Hey there! Thanks for the outstanding support this quarter. We noticed an urgent duplicate charge of $99 on invoice #64206 and would appreciate your expedited assistance. Cheers!,billing,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""positive""}",billing,high,positive,True
+supp_0243,Good morning! Super happy with the customer srvice so far! Just noticed a billing glitch where we were charged $299 twice. Hoping you can quickly process a refund. Best regards.,billing,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""positive""}",billing,high,positive,True
+supp_0325,Emergency billing issue: your automated billing script charged my corporate credit card 58374 times today. Total unauthorized charge is over $149. Call me immediately! Not happy about this.,billing,high,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Support,High,-,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,True
+supp_1310,"Hello, Consignment #59047 is scheduled for urgent delivery today, but the destination address has a typographical error in the postal code. Correct this with the carrier imediatly. Please advise.",shipping,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""neutral""}",shipping,high,neutral,True
+supp_0488,"Hello, The new API response times are fantastic! We just ran into a small query parameter issue when paginating results beyond page 50. Cheers!",technical,medium,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""positive""}",technical,medium,positive,True
+supp_0849,"Good day, Please update the organization name on our account profile from TechCorp LLC to TechCorp Global Inc. Regards.",account,medium,neutral,"{
+  ""category"": ""Customer Service - Update Account Information"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service - Update Account Information,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""neutral""}",account,low,neutral,False
+supp_0451,"Attention: The keyboard shortcut Ctrl+K opens the search bar, but Esc doesn't always close it on Firefox. Not happy about this.",technical,low,negative,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical Support,High,-,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""negative""}",technical,medium,negative,False
+supp_0185,"hello, can you please provide the vat invoice for my recent payment of $2450 on invoice #57265? regards.",billing,medium,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Customer Service,High,Neutral,False,"{""category"": ""billing"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",billing,medium,neutral,True
+supp_1221,"I paid extra for 2-day express shipping, but the tracking details show standard ground transit taking 6 days.",shipping,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5%""
+}",Customer Service,High,-5%,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""negative""}",shipping,low,negative,False
+supp_0332,Hello? I was charged $29 three separate times for order #10142! My bank account is now in overdraft. Fix this immediately and refund the unauthorized deductions! pls resolve this immediately.,billing,high,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,True
+supp_1263,Quick note: Thank you for the prompt dispatch! The package #92709 is critical for our team demo tomorrow; could you help ensure priority courier delivery? Best regards.,shipping,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""positive""}",shipping,high,positive,True
+supp_0498,Attention Support: The syntax highlighter does not format YAML snippets properly in the code block preview. Thank you.,technical,medium,neutral,"{
+  ""category"": ""Technical"",
+  ""priority"": 3,
+  ""sentiment"": -1
+}",Technical,3,-1,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""negative""}",technical,low,negative,False
+supp_0144,hey there! enjoying the product very much. wondering if we can switch from monthly to annual billing to take advantage of the discount. many thanks.,billing,medium,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""medium"", ""sentiment"": ""positive""}",billing,medium,positive,True
+supp_1002,Hello? An unauthorized employee was able to elevate their privileges to Owner and revoke admin rights. This is a severe security violation. Intervene immediately! Not happy about this.,account,high,negative,"{
+  ""category"": ""Security"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Security,High,-,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,False
+supp_0869,"Hi, I need to export our team's complete personal profile data in accordance with GDPR compliance. Please advise.",account,medium,neutral,"{
+  ""category"": ""Help Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Help Request,High,Neutral,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",account,medium,neutral,True
+supp_1207,Is signature upon delivery required for the upcoming shipment of order #79054?,shipping,medium,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,False
+supp_1185,Has order #36179 been handed over to the postal service or is it still being packed at the warehouse? Regards.,shipping,medium,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Customer Service,High,Neutral,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,False
+supp_0516,Inquiry: What is the recommended timeout setting for the bulk upload REST API to prevent connection termination? Regards.,technical,medium,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Technical Support,High,Neutral,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""neutral""}",technical,low,neutral,False
+supp_1286,Quick note: Appreciate your reliable srvice as always. Package #63983 had a delivery exception notice; excited for your team to help resolve it quickly! Appreciate your help as always.,shipping,high,positive,"```json
+{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}
+```",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""positive""}",shipping,high,positive,True
+supp_1314,Inquiry: Freight consignment #15006 required a liftgate at delivery but the driver arrived in a standard truck and refused delivery. Reschedule priority freight with liftgate. Thanks.,shipping,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""positive""}",shipping,high,positive,False
+supp_1070,"Good day, Do you offer free shipping on international orders over a certain threshold? Awaiting your response.",shipping,low,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,True
+supp_0362,Loving the keyboard shortcuts feature! Makes navigating the dashboard such a breeze.,technical,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": 5,
+  ""sentiment"": ""Positive""
+}",Positive,5,Positive,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""positive""}",technical,low,positive,True
+supp_1272,Thanks so much for your great customer care. We have an urgnt order #26936 that we'd love to upgrade to priority overnight shipping if still possible.,shipping,high,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""positive""}",shipping,high,positive,True
+supp_0489,Hope you are doing great! Really digging the new UI update! Just noticed a minor rendering bug where the navigation bar overlaps modal popups on Safari. Appreciate your help as always.,technical,medium,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""positive""}",technical,medium,positive,True
+supp_0107,can someone explain this? your pricing page is slightly confusing regarding whether sales tax is included in the monthly price. resolve this now!,billing,low,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": 3,
+  ""sentiment"": ""Negative""
+}",Technical,3,Negative,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""negative""}",billing,low,negative,True
+supp_1049,Good morning! Huge kudos on the super fast shipping! Everything was packed securely and arrived in pristine condition. Best regards.,shipping,low,positive,"{
+  ""category"": ""Thank You"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Thank You,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""positive""}",shipping,low,positive,True
+supp_0643,Attention Support: The primary WebSocket connection drops every 45 seconds under load. Trace logs attached for your infrastructure team. Let me know.,technical,high,neutral,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",technical,medium,neutral,False
+supp_0820,"Hello support crew, Thank you for helping us set up the account last month. Everything is going great; just wanted to add a secondary administrator. Have a wonderful day!",account,medium,positive,"{
+  ""category"": ""Setup"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Setup,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,False
+supp_1112,Would be nice if the courier sent an SMS reminder in addition to the email notification.,shipping,low,negative,"{
+  ""category"": ""Request for Improvement"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request for Improvement,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",shipping,medium,neutral,False
+supp_0449,Hello? Font size in the code viewer is slightly smaller than the rest of the application interface. Waiting for a quick reply.,technical,low,negative,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical Support,High,-,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""neutral""}",technical,low,neutral,False
+supp_0404,Inquiry: Is there an open roadmap for supporting ARM64 Linux binaries for your CLI tool? Please advise.,technical,low,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical Support,High,Negative,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""neutral""}",technical,low,neutral,True
+supp_1338,"Attention: The courier delivered a crushed, soaking wet box for order #42077. The fragile glass contents inside are completely shattered! I need a replacement dispatched immediately! Fix this asap.",shipping,high,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5""
+}",Customer Service,High,-5,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,True
+supp_1005,ACCOUNT COMPROMISED: I received an email saying my login password and recovery email were changed from an unrecognized IP in another country! Lock my account immediately!,account,high,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5""
+}",Customer Support,High,-5,False,"{""category"": ""account"", ""priority"": ""high"", ""sentiment"": ""negative""}",account,high,negative,True
+supp_0791,Unacceptable: The notification settings page has too many toggles and feels somewhat cluttered. Waiting for a quick reply.,account,low,negative,"{
+  ""category"": ""User Feedback"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",User Feedback,High,-,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""negative""}",technical,low,negative,False
+supp_0930,"Hi team, I know security protocols are strict for good reason, but I'm locked out of my corporate account and need quick assistance to recover it today! Cheers!",account,high,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5""
+}",Customer Support,High,-5,False,"{""category"": ""account"", ""priority"": ""high"", ""sentiment"": ""neutral""}",account,high,neutral,False
+supp_0702,Love how easy it is to manage profile settings in the new dashboard!,account,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Positive,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,True
+supp_1163,Good morning! Love your products! Just a quick inquiry to see if package #27878 can be held at the local branch for pickup. Have a wonderful day!,shipping,medium,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""positive""}",shipping,low,positive,False
+supp_1140,"Listen, The shipping label was slapped right over the product instructions on the box. Not happy about this.",shipping,low,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5""
+}",Customer Service,High,-5,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""negative""}",shipping,low,negative,True
+supp_0632,Regarding: The primary WebSocket connection drops every 45 seconds under load. Trace logs attached for your infrastructure team. Thanks.,technical,high,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical Support,High,Negative,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",technical,medium,neutral,False
+supp_0432,"Listen, Minor annoyance: the tooltips on the settings page flicker when hovering over them quickly. This is ridiculous.",technical,low,negative,"{
+  ""category"": ""User Feedback"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",User Feedback,High,-,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""negative""}",technical,low,negative,True
+supp_1144,Thank you for the update! Glad to hear the package is on its way. Let me know if there are any tracking updates.,shipping,medium,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""positive""}",shipping,low,positive,False
+supp_0466,"Hello, Thanks for building such an intuitive developer portal. Found a minor typo in the Python code example on page 4. Many thanks.",technical,medium,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""positive""}",technical,low,positive,False
+supp_0741,"Hi, Is it possible to customize the notification digest from weekly to monthly? Awaiting your response.",account,low,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""neutral""}",billing,low,neutral,False
+supp_0843,Support request: Can you confirm whether deleting a user profile permanently removes their activity history from workspace logs? Let me know.,account,medium,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical Support,High,Negative,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""neutral""}",account,low,neutral,False
+supp_0545,"Listen, Search filter by date range is not returning results for records created after October 1st. Please investigate. Please resolve this immediately.",technical,medium,negative,"{
+  ""category"": ""Support Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Support Request,High,Negative,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,False
+supp_0441,"hey, the favicon appears blurry on high-dpi retina displays. waiting for a quick reply.",technical,low,negative,"{
+  ""category"": ""Request"",
+  ""priority"": 3,
+  ""sentiment"": -1
+}",Request,3,-1,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""negative""}",technical,low,negative,True
+supp_1227,"Listen, Only one item out of three arrived in the parcel for order #40496. The packing slip shows all three were supposed to be included. Please resolve this immediately.",shipping,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,False
+supp_0271,Invoice #34123 has been sent to our legal department due to incorrect billing terms of $1200. Please rectify this prior to COB.,billing,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""neutral""}",billing,high,neutral,True
+supp_0028,Hope you are doing great! Love the clear billing breakdown on your new invoices! Keep up the good work. Appreciate your help as always.,billing,low,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""positive""}",billing,low,positive,True
+supp_0090,"Unacceptable: Minor issue, but the receipt layout is hard to read and doesn't clearly display the subtotal. Waiting for a quick reply.",billing,low,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Service,High,-,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""negative""}",billing,low,negative,True
+supp_0976,"Good day, Urgent account audit request: please provide the complete access log and IP history for user ID #98853 for the last 48 hours. Regards.",account,high,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""account"", ""priority"": ""high"", ""sentiment"": ""neutral""}",account,high,neutral,True
+supp_0115,"Hi team, Enjoying the product very much. Wondering if we can switch from monthly to annual billing to take advantage of the discount. Many thanks.",billing,medium,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""medium"", ""sentiment"": ""positive""}",billing,medium,positive,True
+supp_0968,Inquiry: Organization owner has left the company. We require legal transfer of the primary tenant account to the new chief executive. Thank you.,account,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",account,medium,neutral,False
+supp_1064,Hope you are doing great! My package arrived two days earlier than expected! Fantastic delivery service as always. Best regards.,shipping,low,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""positive""}",shipping,low,positive,True
+supp_0044,Attention Support: Just checking what payment methods you currently accept for personal plans. Thanks.,billing,low,neutral,"{
+  ""category"": ""Information Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Information Request,High,Neutral,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""neutral""}",billing,low,neutral,True
+supp_0407,Regarding: Just curious if you plan to add syntax support for Rust in the markdown preview. Please advise.,technical,low,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": 3,
+  ""sentiment"": ""Negative""
+}",Request,3,Negative,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""neutral""}",technical,low,neutral,True
+supp_0536,"Hey, Push notifications have stopped arriving on Android devices since the patch yesterday. Resolve this now!",technical,medium,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""negative""}",technical,medium,negative,True
+supp_0007,"Hi team, Everything looks wonderful on our latest statement. Thanks for the seamless billing experience! Thanks so much!",billing,low,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""positive""}",billing,low,positive,True
+supp_0577,Hey there! Huge fans of your platform! Unfortunately our staging environment hit a critical deadlock after today's release. Excited to see this resolved. Appreciate your help as always.,technical,high,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""positive""}",technical,high,positive,True
+supp_1355,"Unacceptable: URGENT: Package #22395 was marked as 'Delivered on Porch' an hour ago, but nothing is here! Security cameras show no delivery driver arrived! This is a $1,200 laptop! Resolve this now!",shipping,high,negative,"{
+  ""category"": ""High Priority"",
+  ""priority"": ""Critical"",
+  ""sentiment"": ""-""
+}",High Priority,Critical,-,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""negative""}",shipping,high,negative,True
+supp_0268,Regarding: Critical billing update: our primary payment method expired and automatic payroll service billing is failing today. Need phone support to process manual wire. Regards.,billing,high,neutral,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Support,High,-,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""neutral""}",billing,high,neutral,True
+supp_0055,"Hi, Do you provide a formal receipt for transactions under $10? pls advise.",billing,low,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""neutral""}",billing,low,neutral,True
+supp_0112,Hello? Noticed a small discrepancy of a few cents on the monthly conversion rate. Not a big deal but wanted to inform you. Please resolve this immediately.,billing,low,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Customer Service,High,Neutral,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""neutral""}",billing,low,neutral,False
+supp_0656,System memory leak in v2.4.1 is causing our worker containers to OOM kill every 20 minutes. We need emergency senior engineering support.,technical,high,negative,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical Support,High,-,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,True
+supp_0527,attention support: we are observing intermittent 429 too many requests errors despite staying under our 100 req/min rate limit. awaiting your response.,technical,medium,neutral,"```json
+{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}
+```",Technical,High,Negative,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",technical,medium,neutral,True
+supp_1153,"Hi team, Really pleased with how quickly order #66629 was processed. Could you send me the tracking link when it becomes available? Have a wonderful day!",shipping,medium,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""positive""}",shipping,low,positive,False
+supp_0695,really pleased with how straightforward account management is on your platform!,account,low,positive,"{
+  ""category"": ""Positive"",
+  ""priority"": 5,
+  ""sentiment"": ""Positive""
+}",Positive,5,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,True
+supp_0164,Support request: Where can I download all monthly statements for the year 2025 in PDF format? Regards.,billing,medium,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""neutral""}",billing,high,neutral,False
+supp_0670,PRODUCTION CRASH: The core service is throwing 500 Internal Server Error across all endpoints since 10 minutes ago! Our entire user base is blocked! Fix this asap.,technical,high,negative,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical Support,High,-,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,True
+supp_0205,Why was I charged a late fee of $499 when my payment went through on the due date? plz credit this back to my account.,billing,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,False
+supp_0888,"Trying to change my registered email address, but the confirmation link keeps giving an 'Invalid or Expired Token' error.",account,medium,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",account,medium,neutral,False
+supp_0072,Regarding: Just checking what payment methods you currently accept for personal plans. Awaiting your response.,billing,low,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""neutral""}",billing,low,neutral,True
+supp_1082,"Good day, Can I opt out of physical paper receipts being included inside the shipping package? Awaiting your response.",shipping,low,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,True
+supp_0186,When will the refund of $299 processed on Monday reflect in my bank acount?,billing,medium,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""neutral""}",billing,low,neutral,False
+supp_0580,Good morning! Always love the rapid response from your tech support. We have a severe server connection failure on production node #43902. Thanks in advance for the fix! Many thanks.,technical,high,positive,"{
+  ""category"": ""Support Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support Request,High,Positive,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""positive""}",technical,high,positive,True
+supp_0834,Quick note: Thanks for the great customer srvice. Could you guide me on how to invite three new members to our team workspace? Best regards.,account,medium,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,False
+supp_0148,"First off, great work! The transition to the team plan was super smooth. Could you assist with updating the billing email to accounting@example.com? Appreciate your help as always.",billing,medium,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""billing"", ""priority"": ""medium"", ""sentiment"": ""positive""}",billing,medium,positive,True
+supp_1213,Attention Support: Has order #74927 been handed over to the postal service or is it still being packed at the warehouse? Regards.,shipping,medium,neutral,"{
+  ""category"": ""Order status"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Order status,High,Neutral,False,"{""category"": ""shipping"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",shipping,medium,neutral,True
+supp_1032,"First off, great work! Huge kudos on the super fast shipping! Everything was packed securely and arrived in pristine condition. Appreciate your help as always.",shipping,low,positive,"{
+  ""category"": ""Thank You"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Thank You,High,Positive,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""positive""}",shipping,high,positive,False
+supp_0782,"Hey, Wish the avatar crop tool allowed custom aspect ratios instead of just a circle. Not happy about this.",account,low,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Customer Support,High,-,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""negative""}",technical,low,negative,False
+supp_1097,Support request: Do you ship to military APO/FPO addresses? Awaiting your response.,shipping,low,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Request,High,-,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,True
+supp_0585,Hey there! Huge fans of your platform! Unfortunately our staging environment hit a critical deadlock after today's release. Excited to see this resolved. Many thanks.,technical,high,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""positive""}",technical,high,positive,True
+supp_1317,Carrier tracking reports shipment #86919 was returned to sender due to 'Address Incomplete'. We need expedited reshipment to the corrected location.,shipping,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""high"", ""sentiment"": ""neutral""}",shipping,high,neutral,True
+supp_0769,Unacceptable: Wish the avatar crop tool allowed custom aspect ratios instead of just a circle. pls resolve this immediately.,account,low,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Support,High,Negative,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,False
+supp_0755,"hello, where can i review the active browser sessions currently logged into my profile? let me know.",account,low,neutral,"{
+  ""category"": ""Help"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Help,High,Neutral,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""neutral""}",account,low,neutral,True
+supp_0623,"Hi, Webhook delivery endpoint is receiving HTTP 504 gateway timeouts from your server cluster. Urgent diagnostics needed. Thank you.",technical,high,neutral,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical Support,High,Negative,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,False
+supp_0913,Your security team did a great job flagging suspicious activity! My account was temporarily frozen for safety; could you help me verify my identity to restore access?,account,high,positive,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Support,High,Positive,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""positive""}",account,medium,positive,False
+supp_0155,Regarding: I need to change the billing currency from USD to EUR for our company profile. Please advise.,billing,medium,neutral,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Support,High,Negative,False,"{""category"": ""billing"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",billing,medium,neutral,True
+supp_0715,Hope you are doing great! Love how easy it is to manage profile settings in the new dashboard! Thanks so much!,account,low,positive,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Support,High,Positive,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""positive""}",account,low,positive,True
+supp_0252,"Hello, We love the service and want to upgrade immediatly to the annual plan before our cycle ends tonight. Please send the link to finalize payment! Appreciate your help as always.",billing,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""positive""}",billing,high,positive,True
+supp_0330,Why the hell did my subscription jump from $29 to $99 without any warning? Refund the difference right now or I will initiate a chargeback with Amex.,billing,high,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-50%""
+}",Customer Service,High,-50%,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""negative""}",billing,high,negative,True
+supp_0030,Quick note: Kudos to the billing team for keeping everything straightforward and transparent. Appreciate your help as always.,billing,low,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""positive""}",billing,low,positive,True
+supp_0963,"Hi, Organization owner has left the company. We require legal transfer of the primary tenant account to the new chief executive. Thank you.",account,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""account"", ""priority"": ""medium"", ""sentiment"": ""neutral""}",account,medium,neutral,False
+supp_0415,Support request: Just curious if you plan to add syntax support for Rust in the markdown preview. Thank you.,technical,low,neutral,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""neutral""}",technical,low,neutral,True
+supp_0211,Your checkout page applied the wrong exchange rate for my purchase of $299. That cost me extra fees.,billing,medium,negative,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-5%""
+}",Customer Service,High,-5%,False,"{""category"": ""billing"", ""priority"": ""low"", ""sentiment"": ""negative""}",billing,low,negative,False
+supp_0763,Hello? It took me a while to find where the logout button was hidden inside the submenu. Resolve this now!,account,low,negative,"{
+  ""category"": ""Request"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Request,High,Negative,False,"{""category"": ""technical"", ""priority"": ""low"", ""sentiment"": ""neutral""}",technical,low,neutral,False
+supp_0094,Attention: The invoice email went to my spam folder because of the sender domain settings. This is ridiculous.,billing,low,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-50%""
+}",Customer Support,High,-50%,False,"{""category"": ""billing"", ""priority"": ""medium"", ""sentiment"": ""negative""}",billing,medium,negative,False
+supp_1204,How do I redirect package #27002 to a nearby pickup depot instead of home delivery?,shipping,medium,neutral,"{
+  ""category"": ""Help"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Help,High,Negative,False,"{""category"": ""shipping"", ""priority"": ""low"", ""sentiment"": ""neutral""}",shipping,low,neutral,False
+supp_0911,Extremely frustrated here. I've requested a password reset email four times over the past hour and haven't received a single message. Checked spam already. Not happy about this.,account,medium,negative,"{
+  ""category"": ""Customer Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-50%""
+}",Customer Support,High,-50%,False,"{""category"": ""account"", ""priority"": ""high"", ""sentiment"": ""negative""}",account,high,negative,False
+supp_0302,Invoice #68429 has been sent to our legal department due to incorrect billing terms of $99. Please rectify this prior to COB. Thanks.,billing,high,neutral,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Customer Service,High,Negative,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""neutral""}",billing,high,neutral,True
+supp_0250,"First off, great work! We love the servce and want to upgrade immediately to the annual plan before our cycle ends tonight. Please send the link to finalize payment! Best regards.",billing,high,positive,"{
+  ""category"": ""Customer Service"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Positive""
+}",Customer Service,High,Positive,False,"{""category"": ""billing"", ""priority"": ""high"", ""sentiment"": ""positive""}",billing,high,positive,True
+supp_0665,Hello? PRODUCTION CRASH: The core service is throwing 500 Internal Server Error across all endpoints since 10 minutes ago! Our entire user base is blocked! Waiting for a quick reply.,technical,high,negative,"{
+  ""category"": ""Technical Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""-""
+}",Technical Support,High,-,False,"{""category"": ""technical"", ""priority"": ""high"", ""sentiment"": ""negative""}",technical,high,negative,True
+supp_0749,"Hi, Does changing my profile timezone automatically alter timestamp displays across reports? Awaiting your response.",account,low,neutral,"{
+  ""category"": ""Support"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Neutral""
+}",Support,High,Neutral,False,"{""category"": ""account"", ""priority"": ""low"", ""sentiment"": ""neutral""}",account,low,neutral,True
+supp_0544,Search filter by date range is not returning results for records created after October 1st. Please investigate.,technical,medium,negative,"{
+  ""category"": ""Technical"",
+  ""priority"": ""High"",
+  ""sentiment"": ""Negative""
+}",Technical,High,Negative,False,"{""category"": ""technical"", ""priority"": ""medium"", ""sentiment"": ""negative""}",technical,medium,negative,True
