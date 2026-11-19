@@ -1,0 +1,421 @@
+prompt_id,category,prompt,expected_answer_characteristics,q4_output,q8_output,q4_score,q8_score,q4_observations,q8_observations,difference_explanation
+PROMPT-01,General Reasoning,"Three friends (Alice, Bob, and Charlie) are sitting in a single row of three chairs. Alice refuses to sit next to Bob. If Bob is seated on the far left (Chair 1), determine the exact seating order from left to right (Chair 1, Chair 2, Chair 3). Explain your deductive reasoning step by step and clearly state the final seating arrangement.","Deductive proof explaining that since Alice cannot sit next to Bob (Chair 1), Alice cannot be in Chair 2. Therefore Alice must be in Chair 3, leaving Chair 2 for Charlie. Final arrangement: Bob, Charlie, Alice.","Let's analyze the problem step by step:
+
+1. **Identify the constraints:**
+   - Alice refuses to sit next to Bob.
+   - Bob is seated on the far left (Chair 1).
+
+2. **Determine the possible positions for Alice and Charlie:**
+   - Since Bob is on Chair 1, Alice cannot be on Chair 2 (next to Bob).
+   - Therefore, Alice must be on Chair 3 (the far right).
+
+3. **Determine the position for Charlie:**
+   - Since Alice is on Chair 3, Charlie cannot be on Chair 2 (next to Alice).
+   - Therefore, Charlie must be on Chair 1 (the far left).
+
+4. **Final seating arrangement:**
+   - Chair 1: Bob
+   - Chair 2: Charlie
+   - Chair 3: Alice
+
+So, the exact seating order from left to right is:
+- Chair 1: Bob
+- Chair 2: Charlie
+- Chair 3: Alice","To determine the exact seating order from left to right (Chair 1, Chair 2, Chair 3) given that Alice refuses to sit next to Bob and Bob is seated on the far left (Chair 1), we can follow these steps:
+
+1. **Identify the constraints:**
+   - Bob is seated on Chair 1.
+   - Alice refuses to sit next to Bob.
+
+2. **Consider the possible positions for Alice:**
+   - Since Alice cannot sit next to Bob, she cannot sit in Chair 2 (next to Bob).
+
+3. **Determine the possible positions for Alice:**
+   - The only remaining position for Alice is Chair 3.
+
+4. **Determine the position for Charlie:**
+   - Since Alice is in Chair 3 and Bob is in Chair 1, Charlie must be in Chair 2.
+
+5. **Verify the seating arrangement:**
+   - Alice is in Chair 3.
+   - Bob is in Chair 1.
+   - Charlie is in Chair 2.
+
+6. **Check the constraint:**
+   - Alice is not next to Bob (Alice is in Chair 3 and Bob is in Chair 1).
+
+Therefore, the exact seating order from left to right is:
+
+- **Chair",10.0,10.0,Correctly identified chairs.; Deductive reasoning explained.,Correctly identified chairs.; Deductive reasoning explained.,Both models performed equally well according to the rubric. Length difference: Q8_0 produced +46 words compared to Q4_K_M.
+PROMPT-02,Python Programming,"Write a self-contained Python function `find_top_k_frequent(nums: list[int], k: int) -> list[int]` that takes a list of integers and returns the k most frequent elements in descending order of frequency. Include full type annotations, a docstring, handle edge cases (e.g. k greater than unique elements), and demonstrate example usage with `nums = [1, 1, 1, 2, 2, 3]` and `k = 2`.","Clean, syntactically valid Python code defining find_top_k_frequent, utilizing collections.Counter or dictionary counting, handling k bounds, type hints, docstring, and executable example returning [1, 2].","```python
+from typing import List, Tuple
+from collections import Counter
+
+def find_top_k_frequent(nums: List[int], k: int) -> List[int]:
+    """"""
+    Finds the k most frequent elements in a list of integers.
+    
+    Args:
+    nums: List[int] - A list of integers.
+    k: int - The number of top frequent elements to return.
+    
+    Returns:
+    List[int] - A list of the k most frequent elements in descending order of frequency.
+    """"""
+    # Count the frequency of each number
+    frequency = Counter(nums)
+    # Sort the numbers by frequency in descending order
+    sorted_nums = sorted(frequency.items(), key=lambda x: x[1], reverse=True)
+    # Return the top k elements
+    return [num for num, _ in sorted_nums[:k]]
+
+# Example usage
+if __name__ == ""__main__"":
+    nums = [1, 1, 1, 2, 2, 3]
+    k = 2
+    print(find_top_k_frequent(nums, k))  # Output: [1, 2]
+```
+
+This solution uses the `Counter` class from the `collections` module to count the frequency of each number in","```python
+from typing import List
+from collections import Counter
+
+def find_top_k_frequent(nums: List[int], k: int) -> List[int]:
+    """"""
+    Finds the k most frequent elements in a list of integers.
+    
+    Parameters:
+    nums (List[int]): The list of integers to analyze.
+    k (int): The number of top frequent elements to return.
+    
+    Returns:
+    List[int]: A list of the k most frequent elements in descending order of frequency.
+    """"""
+    # Count the frequency of each element in nums
+    freq = Counter(nums)
+    # Sort the elements by frequency in descending order
+    # and then by the element value in ascending order
+    # to ensure that the top k elements are returned in descending order of frequency
+    return [num for num, freq in freq.most_common(k)]
+
+# Example usage
+if __name__ == ""__main__"":
+    nums = [1, 1, 1, 2, 2, 3]
+    k = 2
+    print(find_top_k_frequent(nums, k))  # Output: [1, 2]
+```
+
+This solution uses the `Counter` class from the `collections` module to count the frequency of each",10.0,10.0,Defined required function name.; Code is syntactically valid Python.; Type annotations present.; Docstring included.,Defined required function name.; Code is syntactically valid Python.; Type annotations present.; Docstring included.,Both models performed equally well according to the rubric. Length difference: Q8_0 produced +10 words compared to Q4_K_M.
+PROMPT-03,Mathematical Problem Solving,"A store offers a 20% discount on a jacket. During a weekend flash sale, an additional 15% discount is applied to the already discounted price. If the original price of the jacket was $120.00, what is the final price after both discounts? Show each calculation step explicitly and format the final answer in dollars and cents.","Step 1: First discount is 20% of 120 = 24, discounted price = $96.00. Step 2: Second discount is 15% of 96 = 14.40, final price = $81.60. (Or 120 * 0.80 * 0.85 = 81.60). Explicit calculations shown.","To find the final price of the jacket after both discounts, we need to apply each discount step by step.
+
+1. **Original Price**: $120.00
+
+2. **First Discount (20%)**:
+   - Calculate the amount of the first discount:
+     \[
+     \text{First Discount Amount} = 120 \times 0.20 = 24
+     \]
+   - Subtract the first discount from the original price:
+     \[
+     \text{Price after First Discount} = 120 - 24 = 96
+     \]
+
+3. **Second Discount (15%)**:
+   - Calculate the amount of the second discount:
+     \[
+     \text{Second Discount Amount} = 96 \times 0.15 = 14.40
+     \]
+   - Subtract the second discount from the price after the first discount:
+     \[
+     \text{Final Price} = 96 - 14.40 = 81.60
+     \]
+
+Therefore, the final price of the jacket after both discounts is $81.60.","To find the final price of the jacket after both discounts, we'll apply each discount step by step.
+
+1. **First Discount (20% off):**
+   - Original price: $120.00
+   - Discount amount: \( 120.00 \times 0.20 = 24.00 \)
+   - Price after first discount: \( 120.00 - 24.00 = 96.00 \)
+
+2. **Second Discount (15% off the already discounted price):**
+   - Discount amount: \( 96.00 \times 0.15 = 14.40 \)
+   - Price after second discount: \( 96.00 - 14.40 = 81.60 \)
+
+Therefore, the final price of the jacket after both discounts is **$81.60**.",10.0,10.0,Final answer $81.60 is mathematically exact.; All intermediate arithmetic steps shown.,Final answer $81.60 is mathematically exact.; All intermediate arithmetic steps shown.,Both models performed equally well according to the rubric. Length difference: Q8_0 produced -33 words compared to Q4_K_M.
+PROMPT-04,Text Summarisation,"Summarise the following paragraph about quantum computing into EXACTLY two concise sentences. Ensure that you mention both qubits/superposition and potential cryptographic/security implications:
+
+'Quantum computing represents a paradigm shift from classical computational architectures by leveraging the bizarre principles of quantum mechanics. Unlike classical bits which exist strictly as either 0 or 1, quantum bits (qubits) can exist in a superposition of multiple states simultaneously, enabling exponential parallelism across certain calculation domains. This immense computational capability promises breakthroughs in molecular simulation, logistics, and material science. However, it also introduces profound cryptographic vulnerabilities, as Shor's algorithm running on a sufficiently fault-tolerant quantum machine could theoretically break pervasive public-key cryptosystems such as RSA and Elliptic Curve Cryptography, necessitating a global migration toward post-quantum encryption standards.'",Strictly two sentences. Sentence 1 discusses quantum bits / superposition. Sentence 2 discusses the cryptographic vulnerabilities / post-quantum encryption.,"'Quantum computing represents a paradigm shift from classical computational architectures by leveraging the bizarre principles of quantum mechanics. Unlike classical bits which exist strictly as either 0 or 1, quantum bits (qubits) can exist in a superposition of multiple states simultaneously, enabling ... (truncated)
+Quantum computing leverages qubits that can exist in multiple states simultaneously, offering exponential parallelism, but also introduces cryptographic vulnerabilities due to Shor's algorithm.","'Quantum computing represents a paradigm shift from classical computational architectures by leveraging the bizarre principles of quantum mechanics. Unlike classical bits which exist strictly as either 0 or 1, quantum bits (qubits) can exist in a superposition of multiple states simultaneously, enabling ... (truncated)
+Quantum computing leverages qubits that can exist in a superposition of states, offering exponential parallelism and potential breakthroughs in fields like material science. However, this technology introduces cryptographic vulnerabilities, particularly to public-key cryptosystems like RSA and ECC, necessitating the development of post-quantum encryption standards.",9.0,9.0,Produced 3 sentences instead of exactly 2.; Included qubits/superposition concepts.; Included cryptographic/security implications.,Produced 4 sentences instead of exactly 2.; Included qubits/superposition concepts.; Included cryptographic/security implications.,Both models performed equally well according to the rubric. Length difference: Q8_0 produced +21 words compared to Q4_K_M.
+PROMPT-05,Structured JSON Generation,"Extract the profile information from the following text and output ONLY a valid JSON object matching the exact schema below. Do not include any markdown fences, conversational filler, or commentary outside the JSON.
+
+Text: 'Dr. Elena Rostova is a 42-year-old Senior Research Scientist at NeuroTech Labs in Zurich, Switzerland. She specializes in brain-computer interfaces and has published 34 peer-reviewed papers. Her contact email is elena.rostova@neurotech.ch.'
+
+Schema:
+{
+  ""name"": string,
+  ""age"": integer,
+  ""role"": string,
+  ""organization"": string,
+  ""city"": string,
+  ""country"": string,
+  ""publication_count"": integer,
+  ""primary_field"": string,
+  ""email"": string
+}","Pure parseable JSON with exact keys: name ('Dr. Elena Rostova' or 'Elena Rostova'), age (42), role ('Senior Research Scientist'), organization ('NeuroTech Labs'), city ('Zurich'), country ('Switzerland'), publication_count (34), primary_field ('brain-computer interfaces'), email ('elena.rostova@neurotech.ch').","Text: 'Dr. Elena Rostova is a 42-year-old Senior Research Scientist at NeuroTech Labs in Zurich, Switzerland. She specializes in brain-computer interfaces and has published 34 peer-reviewed papers. Her contact email is elena.rostova@neurotech.ch.'
+
+Schema:
+{
+  ""name"": string,
+  ""age ... (truncated)
+{
+  ""name"": ""Dr. Elena Rostova"",
+  ""age"": 42,
+  ""role"": ""Senior Research Scientist"",
+  ""organization"": ""NeuroTech Labs"",
+  ""city"": ""Zurich"",
+  ""country"": ""Switzerland"",
+  ""publication_count"": 34,
+  ""primary_field"": ""brain-computer interfaces"",
+  ""email"": ""elena.rostova@neurotech.ch""
+}","Text: 'Dr. Elena Rostova is a 42-year-old Senior Research Scientist at NeuroTech Labs in Zurich, Switzerland. She specializes in brain-computer interfaces and has published 34 peer-reviewed papers. Her contact email is elena.rostova@neurotech.ch.'
+
+Schema:
+{
+  ""name"": string,
+  ""age ... (truncated)
+{
+  ""name"": ""Dr. Elena Rostova"",
+  ""age"": 42,
+  ""role"": ""Senior Research Scientist"",
+  ""organization"": ""NeuroTech Labs"",
+  ""city"": ""Zurich"",
+  ""country"": ""Switzerland"",
+  ""publication_count"": 34,
+  ""primary_field"": ""brain-computer interfaces"",
+  ""email"": ""elena.rostova@neurotech.ch""
+}",7.5,7.5,Failed to produce valid JSON: Expecting value: line 1 column 1 (char 0),Failed to produce valid JSON: Expecting value: line 1 column 1 (char 0),Both models performed equally well according to the rubric. Identical textual response produced by both quantisation tiers.
+PROMPT-06,Technical Explanation,"Explain the fundamental difference between TCP and UDP transport protocols. Structure your response into three clearly labeled sections:
+1. Core Mechanism & Connection Handling
+2. Reliability, Flow Control & Overhead Comparison
+3. Typical Real-World Use Cases for Each
+Use concise bullet points within each section.","Three labeled sections. Section 1 describes connection-oriented (3-way handshake) vs connectionless. Section 2 covers ACK, retransmission, windowing, ordering vs lightweight/low-latency packet loss tolerance. Section 3 lists HTTP/HTTPS, SSH, FTP for TCP and DNS, VoIP, live streaming, gaming for UDP.","1. Core Mechanism & Connection Handling
+2. Reliability, Flow Control & Overhead Comparison
+3. Typical Real-World Use Cases for Each
+Use concise bullet points within each section.
+### 1. Core Mechanism & Connection Handling
+
+- **TCP (Transmission Control Protocol)**: TCP is a connection-oriented protocol. It establishes a full-duplex connection between two endpoints before any data is sent. This connection is maintained until the data transfer is complete. TCP ensures reliable delivery by retransmitting lost packets and acknowledging received packets. It also provides flow control to prevent overloading the network by limiting the amount of data sent at any given time.
+- **UDP (User Datagram Protocol)**: UDP is a connectionless protocol. It does not establish a connection before sending data. Instead, it sends packets directly to the destination. UDP does not provide any error checking or flow control. It is faster and more efficient than TCP but does not guarantee reliable delivery or order.
+
+### 2. Reliability, Flow Control & Overhead Comparison
+
+- **Reliability**: TCP is highly reliable because it ensures that all data is delivered and acknowledges receipt of each packet. UDP, on the other hand, is less reliable because it does not provide any acknowledgment or retransmission mechanism.
+- **Flow Control**: TCP provides flow control to prevent overloading the network by limiting the amount of data sent at any given time. UDP does not provide flow control.
+- **Over","1. Core Mechanism & Connection Handling
+2. Reliability, Flow Control & Overhead Comparison
+3. Typical Real-World Use Cases for Each
+Use concise bullet points within each section.
+### 1. Core Mechanism & Connection Handling
+
+- **TCP (Transmission Control Protocol)**: TCP is a connection-oriented protocol. It establishes a full-duplex connection between two endpoints before sending any data. This connection is maintained until the data transfer is complete. TCP uses a sliding window mechanism for flow control and error detection, ensuring reliable data transmission.
+
+- **UDP (User Datagram Protocol)**: UDP is a connectionless protocol. It does not establish a connection before sending data. UDP is designed for high-speed data transfer and does not provide any error detection or flow control mechanisms. It is faster than TCP but less reliable.
+
+### 2. Reliability, Flow Control & Overhead Comparison
+
+- **Reliability**: TCP is designed to ensure reliable data transmission by using acknowledgments and retransmission mechanisms. UDP, on the other hand, does not provide any reliability guarantees and relies on the application layer to handle errors and retransmissions.
+
+- **Flow Control**: TCP uses a sliding window mechanism to control the flow of data. It allows the sender to send data in small packets and the receiver to acknowledge each packet. UDP does not have flow control mechanisms and relies on the sender to manage the rate of data transmission.
+
+- **Overhead**: TCP has a higher",10.0,10.0,Included all three required structured sections.; Accurately detailed reliability and retransmission differences.,Included all three required structured sections.; Accurately detailed reliability and retransmission differences.,Both models performed equally well according to the rubric. Length difference: Q8_0 produced +0 words compared to Q4_K_M.
+PROMPT-07,Logical Reasoning,"Evaluate the following formal logical premises and answer both questions:
+Premise 1: Every server that hosts the production database has an automated backup agent enabled.
+Premise 2: Server 'prod-db-04' does NOT have an automated backup agent enabled.
+Premise 3: All servers with an automated backup agent enabled send heartbeats to the monitoring cluster.
+
+Questions:
+1. Does 'prod-db-04' host the production database? Name the inference rule (e.g. Modus Ponens, Modus Tollens) that justifies your answer.
+2. Can we deduce with absolute certainty whether 'prod-db-04' sends heartbeats to the monitoring cluster? Explain the formal logical reason why or why not.","1. No, prod-db-04 cannot host the database. By Modus Tollens (If P then Q; not Q; therefore not P). 2. No, we cannot deduce whether prod-db-04 sends heartbeats. Premise 3 is Q -> R. Since ~Q, deducing ~R would commit the fallacy of denying the antecedent (inverse fallacy).","Premise 1: Every server that hosts the production database has an automated backup agent enabled.
+Premise 2: Server 'prod-db-04' does NOT have an automated backup agent enabled.
+Premise 3: All servers with an automated backup agent enabled send heartbeats to the monitoring cluster.
+
+Questions:
+1. Does 'prod-db-04' host the production database? Name the inference rule (e.g. Modus Ponens, Modus Tollens) that justifies your a ... (truncated)
+### Question 1: Does 'prod-db-04' host the production database? Name the inference rule (e.g. Modus Ponens, Modus Tollens) that justifies your answer.
+
+**Inference Rule: Modus Tollens**
+
+**Justification:**
+
+1. **Premise 1:** Every server that hosts the production database has an automated backup agent enabled.
+2. **Premise 2:** Server 'prod-db-04' does NOT have an automated backup agent enabled.
+
+From Premise 2, we know that 'prod-db-04' does not have an automated backup agent enabled. According to Premise 1, if a server hosts the production database, it must have an automated backup agent enabled. Therefore, 'prod-db-04' cannot host the production database.
+
+**Conclusion:** 'prod-db-04' does not host the production database.
+
+### Question 2: Can we deduce with absolute certainty whether 'prod-db-04' sends heartbeats to the monitoring cluster? Explain the formal logical reason why or why not.
+
+**Inference Rule: Modus Ponens**
+
+**Justification:**
+
+1. **Premise 3:** All servers with an automated backup agent enabled send","Premise 1: Every server that hosts the production database has an automated backup agent enabled.
+Premise 2: Server 'prod-db-04' does NOT have an automated backup agent enabled.
+Premise 3: All servers with an automated backup agent enabled send heartbeats to the monitoring cluster.
+
+Questions:
+1. Does 'prod-db-04' host the production database? Name the inference rule (e.g. Modus Ponens, Modus Tollens) that justifies your a ... (truncated)
+1. **Does 'prod-db-04' host the production database? Name the inference rule (e.g. Modus Ponens, Modus Tollens) that justifies your answer.**
+
+   **Inference Rule**: Modus Tollens
+
+   **Justification**:
+   - Premise 1 states: ""Every server that hosts the production database has an automated backup agent enabled.""
+   - Premise 2 states: ""Server 'prod-db-04' does NOT have an automated backup agent enabled.""
+   - From Premise 2, we can infer that 'prod-db-04' does not host the production database.
+   - Modus Tollens is the rule that allows us to conclude the negation of a statement based on the negation of another statement. Here, Premise 2 states that 'prod-db-04' does not have an automated backup agent enabled, which is the negation of the statement that 'prod-db-04' hosts the production database. Therefore, we can conclude that 'prod-db-04' does not host the production database.
+
+2. **Can we deduce with absolute certainty whether 'prod-db-04' sends heartbeats to the monitoring cluster? Explain the",10.0,8.3,Question 1 correctly identified as NO.; Question 1 correctly named Modus Tollens inference rule.; Question 2 correctly reasoned that heartbeats cannot be deduced with certainty.,Question 1 correctly identified as NO.; Question 1 correctly named Modus Tollens inference rule.,Q4_K_M scored higher (+1.7). Length difference: Q8_0 produced +2 words compared to Q4_K_M.
+PROMPT-08,Information Extraction,"Read the invoice text below and extract all line items into a clear list. For each line item, state: Item Name, Unit Quantity, Unit Price ($), and Line Subtotal ($). Finally, state the Invoice Number, Gross Subtotal, Sales Tax Amount, and Grand Total.
+
+Invoice Text:
+'Invoice #INV-2024-8891 issued on October 14. Billed to Acme Corp.
+Purchased: 4 mechanical keyboards at $85.00 each, 2 ultra-wide 34-inch monitors at $450.00 each, and 10 USB-C braided cables at $12.50 each. Sales tax of 8% ($109.20) was applied to the gross subtotal of $1365.00, resulting in a grand total of $1474.20.'",Keyboards: 4 * 85 = $340.00; Monitors: 2 * 450 = $900.00; Cables: 10 * 12.50 = $125.00. Invoice: INV-2024-8891. Gross Subtotal: $1365.00. Tax: $109.20. Grand Total: $1474.20.,"Invoice Text:
+'Invoice #INV-2024-8891 issued on October 14. Billed to Acme Corp.
+Purchased: 4 mechanical keyboards at $85.00 each, 2 ultra-wide 34-inch monitors at $450.00 each, and 10 USB-C braided cables at $12.50 each. Sales tax of 8% ($109.20) ... (truncated)
+Here is the extracted information from the invoice text:
+
+**Invoice Number:** INV-2024-8891
+
+**Gross Subtotal:** $1365.00
+
+**Sales Tax Amount:** $109.20
+
+**Grand Total:** $1474.20
+
+**Line Items:**
+
+1. **Item Name:** Mechanical Keyboard
+   - **Unit Quantity:** 4
+   - **Unit Price ($):** $85.00
+   - **Line Subtotal ($):** $340.00
+
+2. **Item Name:** Ultra-wide 34-inch Monitor
+   - **Unit Quantity:** 2
+   - **Unit Price ($):** $450.00
+   - **Line Subtotal ($):** $900.00
+
+3. **Item Name:** USB-C Braided Cable
+   - **Unit Quantity:** 10
+   - **Unit Price ($):** $12.50
+   - **Line Subtotal ($):** $125.00
+
+**Total Line Subtotals:**
+- Mechanical Keyboard: $340.00
+- Ultra-wide 3","Invoice Text:
+'Invoice #INV-2024-8891 issued on October 14. Billed to Acme Corp.
+Purchased: 4 mechanical keyboards at $85.00 each, 2 ultra-wide 34-inch monitors at $450.00 each, and 10 USB-C braided cables at $12.50 each. Sales tax of 8% ($109.20) ... (truncated)
+Sure, here is the extracted information from the invoice text:
+
+### Invoice Information:
+- **Invoice Number:** INV-2024-8891
+- **Billed to:** Acme Corp
+- **Date:** October 14
+
+### Line Items:
+1. **Item Name:** Mechanical Keyboard
+   - **Unit Quantity:** 4
+   - **Unit Price ($):** $85.00
+   - **Line Subtotal ($):** $340.00
+2. **Item Name:** Ultra-wide 34-inch Monitor
+   - **Unit Quantity:** 2
+   - **Unit Price ($):** $450.00
+   - **Line Subtotal ($):** $900.00
+3. **Item Name:** USB-C Braided Cable
+   - **Unit Quantity:** 10
+   - **Unit Price ($):** $12.50
+   - **Line Subtotal ($):** $125.00
+
+### Total Information:
+- **Gross Subtotal:** $1365.00
+- **Sales Tax Amount:** $109.20
+- **Grand Total:** $",10.0,9.2,"Extracted invoice number correctly.; Grand total $1474.20 extracted accurately.; All three line item subtotals ($340, $900, $125) calculated and extracted.","Extracted invoice number correctly.; All three line item subtotals ($340, $900, $125) calculated and extracted.",Q4_K_M scored higher (+0.8). Length difference: Q8_0 produced +11 words compared to Q4_K_M.
+PROMPT-09,Instruction Following,"Write a product description for an ergonomic office chair following these STRICT constraints:
+1. The response must consist of EXACTLY four sentences.
+2. The first sentence must begin with the word 'Designed'.
+3. The third sentence must contain the word 'lumbar'.
+4. Do NOT use the words 'comfort' or 'comfortable' anywhere in your response.
+5. The fourth sentence must end with the exact phrase 'for every workday.'",Strict compliance with all 5 negative and positive constraints: 4 sentences; sentence 1 starts with 'Designed'; sentence 3 contains 'lumbar'; zero occurrences of 'comfort'/'comfortable'; sentence 4 ends with 'for every workday.',"1. The response must consist of EXACTLY four sentences.
+2. The first sentence must begin with the word 'Designed'.
+3. The third sentence must contain the word 'lumbar'.
+4. Do NOT use the words 'comfort' or 'comfortable' anywhere in your response.
+5. The fourth sentence must end with the exact phrase 'for every workday.'
+Designed with ergonomics in mind, our office chair is crafted to support your posture and alleviate back strain. The lumbar support ensures that your spine is aligned, promoting healthy posture throughout the day. This chair is designed to enhance your work experience, making every workday more comfortable and productive.","1. The response must consist of EXACTLY four sentences.
+2. The first sentence must begin with the word 'Designed'.
+3. The third sentence must contain the word 'lumbar'.
+4. Do NOT use the words 'comfort' or 'comfortable' anywhere in your response.
+5. The fourth sentence must end with the exact phrase 'for every workday.'
+Designed to enhance productivity and comfort, our ergonomic office chair is crafted with a focus on providing a supportive and adjustable environment for your daily work. The lumbar support ensures that your lower back is properly aligned, reducing strain and promoting a healthy posture. This chair is engineered to fit various body types, ensuring a comfortable and secure seating experience. For every workday, it supports your health and well-being, making it the ideal choice for any office setting.",7.4,7.4,Constraint 1 violated: generated 7 sentences instead of 4.; Constraint 2 violated: did not begin with 'Designed'.; Constraint 3: Third sentence contains 'lumbar' satisfied.; Constraint 4 violated: used forbidden word 'comfort'/'comfortable'.; Constraint 5 violated: did not end with 'for every workday.',Constraint 1 violated: generated 8 sentences instead of 4.; Constraint 2 violated: did not begin with 'Designed'.; Constraint 3: Third sentence contains 'lumbar' satisfied.; Constraint 4 violated: used forbidden word 'comfort'/'comfortable'.; Constraint 5 violated: did not end with 'for every workday.',Both models performed equally well according to the rubric. Length difference: Q8_0 produced +29 words compared to Q4_K_M.
+PROMPT-10,Multi-Step Problem Solving,"A software engineering team is planning a 2-week sprint with 3 full-time developers.
+- Each developer works 8 hours per day, 5 days per week.
+- Exactly 20% of each developer's total working hours are reserved for meetings, code reviews, and production support.
+- The remaining capacity is dedicated to user story development.
+- The product backlog contains 4 user stories estimated at 24 hours, 32 hours, 18 hours, and 28 hours respectively.
+
+Calculate:
+1. Total gross capacity (hours) of the entire team for the sprint.
+2. Total reserved overhead hours and the net development capacity (hours).
+3. Total estimated hours required to complete all 4 backlog stories.
+4. Can the team complete all 4 stories in this sprint? What is the remaining surplus or deficit of development hours?
+Show each arithmetic calculation step clearly.","1. Gross capacity = 3 devs * 10 days * 8 hours = 240 hours. 2. Overhead = 20% of 240 = 48 hours; Net dev capacity = 240 - 48 = 192 hours. 3. Story sum = 24 + 32 + 18 + 28 = 102 hours. 4. Yes, team can complete all stories (102 <= 192 hours); Surplus = 192 - 102 = 90 hours.","- Each developer works 8 hours per day, 5 days per week.
+- Exactly 20% of each developer's total working hours are reserved for meetings, code reviews, and production support.
+- The remaining capacity is dedicated to user story development.
+- The product backlog contains 4 user stories estimated at 24 hours, 32 hours, 18 hours, and 28 hours respectively.
+
+Calculate:
+1. Total gross capacity (hours) of the entire  ... (truncated)
+To solve this problem, let's break it down step by step.
+
+### 1. Total Gross Capacity (hours) of the Entire Team for the Sprint
+
+First, calculate the total working hours for one developer per week:
+\[ \text{Total working hours per week} = 8 \text{ hours/day} \times 5 \text{ days/week} = 40 \text{ hours/week} \]
+
+Next, calculate the total working hours for one developer per sprint (2 weeks):
+\[ \text{Total working hours per sprint} = 40 \text{ hours/week} \times 2 \text{ weeks} = 80 \text{ hours} \]
+
+Since there are 3 developers, the total gross capacity for the entire team is:
+\[ \text{Total gross capacity} = 80 \text{ hours} \times 3 = 240 \text{ hours} \]
+
+### 2. Total Reserved Overhead Hours and the Net Development Capacity (hours)
+
+Each developer's total working hours are 80 hours, and 20% of these hours are reserved for meetings, code reviews, and production support:
+\[ \text{Overhead hours per developer} =","- Each developer works 8 hours per day, 5 days per week.
+- Exactly 20% of each developer's total working hours are reserved for meetings, code reviews, and production support.
+- The remaining capacity is dedicated to user story development.
+- The product backlog contains 4 user stories estimated at 24 hours, 32 hours, 18 hours, and 28 hours respectively.
+
+Calculate:
+1. Total gross capacity (hours) of the entire  ... (truncated)
+Let's break down the problem step by step.
+
+### 1. Total Gross Capacity (hours) of the Entire Team for the Sprint
+
+First, calculate the total working hours per developer per week:
+\[ 8 \text{ hours/day} \times 5 \text{ days/week} = 40 \text{ hours/week} \]
+
+Next, calculate the total working hours per developer per sprint (2 weeks):
+\[ 40 \text{ hours/week} \times 2 \text{ weeks} = 80 \text{ hours/developer} \]
+
+Since there are 3 developers, the total gross capacity for the team is:
+\[ 80 \text{ hours/developer} \times 3 \text{ developers} = 240 \text{ hours} \]
+
+### 2. Total Reserved Overhead Hours and the Net Development Capacity (hours)
+
+Each developer's total working hours are 80 hours. 20% of these hours are reserved for meetings, code reviews, and production support:
+\[ 0.20 \times 80 \text{ hours} = 16 \text{ hours} \]
+
+The remaining capacity is dedicated to user story development:
+\[",8.1,8.1,Step 1: Gross capacity 240 hours calculated correctly.,Step 1: Gross capacity 240 hours calculated correctly.,Both models performed equally well according to the rubric. Length difference: Q8_0 produced -6 words compared to Q4_K_M.

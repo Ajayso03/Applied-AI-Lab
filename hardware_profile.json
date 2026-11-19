@@ -1,0 +1,98 @@
+{
+  "platform": {
+    "os": "Windows",
+    "os_release": "11",
+    "os_version": "10.0.26200",
+    "python_version": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
+  },
+  "cpu": {
+    "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "identifier": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+    "architecture": "AMD64",
+    "physical_cores": 6,
+    "logical_cores": 12,
+    "max_frequency_mhz": 3301.0,
+    "current_frequency_mhz": 1805.0,
+    "simd_support": [
+      "AVX",
+      "AVX2",
+      "FMA",
+      "F16C"
+    ]
+  },
+  "memory": {
+    "total_ram_gb": 15.34,
+    "available_ram_gb": 5.39,
+    "used_ram_gb": 9.95,
+    "ram_percent": 64.9,
+    "swap_total_gb": 0.0,
+    "swap_free_gb": 0.0
+  },
+  "storage": {
+    "C:\\": {
+      "total_gb": 209.49,
+      "free_gb": 8.51,
+      "used_gb": 200.98
+    },
+    "D:\\": {
+      "total_gb": 216.42,
+      "free_gb": 145.02,
+      "used_gb": 71.39
+    }
+  },
+  "gpu": {
+    "vulkan_installed": true,
+    "vulkan_instance_version": "1.3.301",
+    "devices": [
+      {
+        "id": "GPU0",
+        "type": "PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU",
+        "name": "AMD Radeon(TM) Graphics",
+        "driver": "AMD proprietary driver",
+        "driver_info": "23.19.14.08 (AMD proprietary shader compiler)"
+      },
+      {
+        "id": "GPU1",
+        "type": "PHYSICAL_DEVICE_TYPE_DISCRETE_GPU",
+        "name": "AMD Radeon(TM) RX 6500M",
+        "driver": "AMD proprietary driver",
+        "driver_info": "24.10.20 (AMD proprietary shader compiler)"
+      },
+      {
+        "id": "GPU2",
+        "type": "PHYSICAL_DEVICE_TYPE_DISCRETE_GPU",
+        "name": "AMD Radeon(TM) RX 6500M",
+        "driver": "AMD proprietary driver",
+        "driver_info": "24.10.20 (AMD proprietary shader compiler)"
+      }
+    ],
+    "cuda_available": false,
+    "cuda_reason": "AMD GPU hardware (Radeon RX 6500M / Radeon Graphics) - NVIDIA CUDA not supported."
+  },
+  "inference_backends": {
+    "cpu": {
+      "supported": true,
+      "status": "Recommended (Primary)",
+      "acceleration": "AVX2 / FMA / OpenMP multi-threading",
+      "threads_recommended": 6,
+      "notes": "Safe, stable, and deterministic across all Windows environments."
+    },
+    "vulkan": {
+      "supported": true,
+      "status": "Available (Optional secondary)",
+      "target_device": "AMD Radeon(TM) RX 6500M (Dedicated GPU)",
+      "notes": "Supported when llama.cpp is built with Vulkan backend (-DGGML_VULKAN=1)."
+    },
+    "cuda": {
+      "supported": false,
+      "status": "Unavailable",
+      "notes": "Host machine is equipped with AMD Radeon graphics; CUDA is NVIDIA-exclusive."
+    },
+    "rocm": {
+      "supported": false,
+      "status": "Unsupported on Windows for Navi 24 (RX 6500M)",
+      "notes": "AMD ROCm on Windows does not officially support RX 6500M (gfx1034)."
+    }
+  }
+}

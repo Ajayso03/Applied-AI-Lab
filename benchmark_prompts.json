@@ -1,0 +1,182 @@
+[
+  {
+    "id": "PROMPT-01",
+    "category": "General Reasoning",
+    "prompt": "Three friends (Alice, Bob, and Charlie) are sitting in a single row of three chairs. Alice refuses to sit next to Bob. If Bob is seated on the far left (Chair 1), determine the exact seating order from left to right (Chair 1, Chair 2, Chair 3). Explain your deductive reasoning step by step and clearly state the final seating arrangement.",
+    "expected_answer_characteristics": "Deductive proof explaining that since Alice cannot sit next to Bob (Chair 1), Alice cannot be in Chair 2. Therefore Alice must be in Chair 3, leaving Chair 2 for Charlie. Final arrangement: Bob, Charlie, Alice.",
+    "evaluation_criteria": {
+      "factual_correctness": 2,
+      "instruction_following": 2,
+      "reasoning_quality": 3,
+      "completeness": 2,
+      "formatting": 1
+    },
+    "rule_based_check": {
+      "type": "exact_sequence",
+      "expected_tokens": ["Bob", "Charlie", "Alice"],
+      "forbidden_tokens": ["Alice, Bob, Charlie", "Bob, Alice, Charlie"]
+    }
+  },
+  {
+    "id": "PROMPT-02",
+    "category": "Python Programming",
+    "prompt": "Write a self-contained Python function `find_top_k_frequent(nums: list[int], k: int) -> list[int]` that takes a list of integers and returns the k most frequent elements in descending order of frequency. Include full type annotations, a docstring, handle edge cases (e.g. k greater than unique elements), and demonstrate example usage with `nums = [1, 1, 1, 2, 2, 3]` and `k = 2`.",
+    "expected_answer_characteristics": "Clean, syntactically valid Python code defining find_top_k_frequent, utilizing collections.Counter or dictionary counting, handling k bounds, type hints, docstring, and executable example returning [1, 2].",
+    "evaluation_criteria": {
+      "factual_correctness": 3,
+      "instruction_following": 2,
+      "code_quality": 3,
+      "completeness": 1,
+      "formatting": 1
+    },
+    "rule_based_check": {
+      "type": "python_syntax_and_keywords",
+      "keywords": ["def find_top_k_frequent", "return", "list[int]"],
+      "expected_result_in_example": "[1, 2]"
+    }
+  },
+  {
+    "id": "PROMPT-03",
+    "category": "Mathematical Problem Solving",
+    "prompt": "A store offers a 20% discount on a jacket. During a weekend flash sale, an additional 15% discount is applied to the already discounted price. If the original price of the jacket was $120.00, what is the final price after both discounts? Show each calculation step explicitly and format the final answer in dollars and cents.",
+    "expected_answer_characteristics": "Step 1: First discount is 20% of 120 = 24, discounted price = $96.00. Step 2: Second discount is 15% of 96 = 14.40, final price = $81.60. (Or 120 * 0.80 * 0.85 = 81.60). Explicit calculations shown.",
+    "evaluation_criteria": {
+      "factual_correctness": 4,
+      "instruction_following": 2,
+      "reasoning_quality": 2,
+      "completeness": 1,
+      "formatting": 1
+    },
+    "rule_based_check": {
+      "type": "numeric_match",
+      "expected_number": "81.60",
+      "intermediate_numbers": ["96", "14.40", "24"]
+    }
+  },
+  {
+    "id": "PROMPT-04",
+    "category": "Text Summarisation",
+    "prompt": "Summarise the following paragraph about quantum computing into EXACTLY two concise sentences. Ensure that you mention both qubits/superposition and potential cryptographic/security implications:\n\n'Quantum computing represents a paradigm shift from classical computational architectures by leveraging the bizarre principles of quantum mechanics. Unlike classical bits which exist strictly as either 0 or 1, quantum bits (qubits) can exist in a superposition of multiple states simultaneously, enabling exponential parallelism across certain calculation domains. This immense computational capability promises breakthroughs in molecular simulation, logistics, and material science. However, it also introduces profound cryptographic vulnerabilities, as Shor's algorithm running on a sufficiently fault-tolerant quantum machine could theoretically break pervasive public-key cryptosystems such as RSA and Elliptic Curve Cryptography, necessitating a global migration toward post-quantum encryption standards.'",
+    "expected_answer_characteristics": "Strictly two sentences. Sentence 1 discusses quantum bits / superposition. Sentence 2 discusses the cryptographic vulnerabilities / post-quantum encryption.",
+    "evaluation_criteria": {
+      "factual_correctness": 2,
+      "instruction_following": 4,
+      "completeness": 2,
+      "reasoning_quality": 1,
+      "formatting": 1
+    },
+    "rule_based_check": {
+      "type": "sentence_count_and_keywords",
+      "expected_sentence_count": 2,
+      "required_keywords": ["qubit", "superposition", "cryptograph"]
+    }
+  },
+  {
+    "id": "PROMPT-05",
+    "category": "Structured JSON Generation",
+    "prompt": "Extract the profile information from the following text and output ONLY a valid JSON object matching the exact schema below. Do not include any markdown fences, conversational filler, or commentary outside the JSON.\n\nText: 'Dr. Elena Rostova is a 42-year-old Senior Research Scientist at NeuroTech Labs in Zurich, Switzerland. She specializes in brain-computer interfaces and has published 34 peer-reviewed papers. Her contact email is elena.rostova@neurotech.ch.'\n\nSchema:\n{\n  \"name\": string,\n  \"age\": integer,\n  \"role\": string,\n  \"organization\": string,\n  \"city\": string,\n  \"country\": string,\n  \"publication_count\": integer,\n  \"primary_field\": string,\n  \"email\": string\n}",
+    "expected_answer_characteristics": "Pure parseable JSON with exact keys: name ('Dr. Elena Rostova' or 'Elena Rostova'), age (42), role ('Senior Research Scientist'), organization ('NeuroTech Labs'), city ('Zurich'), country ('Switzerland'), publication_count (34), primary_field ('brain-computer interfaces'), email ('elena.rostova@neurotech.ch').",
+    "evaluation_criteria": {
+      "factual_correctness": 3,
+      "instruction_following": 4,
+      "output_formatting": 3
+    },
+    "rule_based_check": {
+      "type": "json_schema_validation",
+      "required_keys": ["name", "age", "role", "organization", "city", "country", "publication_count", "primary_field", "email"],
+      "age_value": 42,
+      "publication_count_value": 34
+    }
+  },
+  {
+    "id": "PROMPT-06",
+    "category": "Technical Explanation",
+    "prompt": "Explain the fundamental difference between TCP and UDP transport protocols. Structure your response into three clearly labeled sections:\n1. Core Mechanism & Connection Handling\n2. Reliability, Flow Control & Overhead Comparison\n3. Typical Real-World Use Cases for Each\nUse concise bullet points within each section.",
+    "expected_answer_characteristics": "Three labeled sections. Section 1 describes connection-oriented (3-way handshake) vs connectionless. Section 2 covers ACK, retransmission, windowing, ordering vs lightweight/low-latency packet loss tolerance. Section 3 lists HTTP/HTTPS, SSH, FTP for TCP and DNS, VoIP, live streaming, gaming for UDP.",
+    "evaluation_criteria": {
+      "factual_correctness": 3,
+      "instruction_following": 2,
+      "completeness": 2,
+      "reasoning_quality": 2,
+      "formatting": 1
+    },
+    "rule_based_check": {
+      "type": "section_headers_and_keywords",
+      "required_sections": ["Core Mechanism", "Reliability", "Use Cases"],
+      "keywords": ["handshake", "connectionless", "retransmission", "overhead"]
+    }
+  },
+  {
+    "id": "PROMPT-07",
+    "category": "Logical Reasoning",
+    "prompt": "Evaluate the following formal logical premises and answer both questions:\nPremise 1: Every server that hosts the production database has an automated backup agent enabled.\nPremise 2: Server 'prod-db-04' does NOT have an automated backup agent enabled.\nPremise 3: All servers with an automated backup agent enabled send heartbeats to the monitoring cluster.\n\nQuestions:\n1. Does 'prod-db-04' host the production database? Name the inference rule (e.g. Modus Ponens, Modus Tollens) that justifies your answer.\n2. Can we deduce with absolute certainty whether 'prod-db-04' sends heartbeats to the monitoring cluster? Explain the formal logical reason why or why not.",
+    "expected_answer_characteristics": "1. No, prod-db-04 cannot host the database. By Modus Tollens (If P then Q; not Q; therefore not P). 2. No, we cannot deduce whether prod-db-04 sends heartbeats. Premise 3 is Q -> R. Since ~Q, deducing ~R would commit the fallacy of denying the antecedent (inverse fallacy).",
+    "evaluation_criteria": {
+      "factual_correctness": 4,
+      "instruction_following": 2,
+      "reasoning_quality": 3,
+      "completeness": 1
+    },
+    "rule_based_check": {
+      "type": "logical_rule_identification",
+      "required_terms": ["Modus Tollens", "No", "cannot", "antecedent"]
+    }
+  },
+  {
+    "id": "PROMPT-08",
+    "category": "Information Extraction",
+    "prompt": "Read the invoice text below and extract all line items into a clear list. For each line item, state: Item Name, Unit Quantity, Unit Price ($), and Line Subtotal ($). Finally, state the Invoice Number, Gross Subtotal, Sales Tax Amount, and Grand Total.\n\nInvoice Text:\n'Invoice #INV-2024-8891 issued on October 14. Billed to Acme Corp.\nPurchased: 4 mechanical keyboards at $85.00 each, 2 ultra-wide 34-inch monitors at $450.00 each, and 10 USB-C braided cables at $12.50 each. Sales tax of 8% ($109.20) was applied to the gross subtotal of $1365.00, resulting in a grand total of $1474.20.'",
+    "expected_answer_characteristics": "Keyboards: 4 * 85 = $340.00; Monitors: 2 * 450 = $900.00; Cables: 10 * 12.50 = $125.00. Invoice: INV-2024-8891. Gross Subtotal: $1365.00. Tax: $109.20. Grand Total: $1474.20.",
+    "evaluation_criteria": {
+      "factual_correctness": 4,
+      "instruction_following": 2,
+      "completeness": 2,
+      "formatting": 2
+    },
+    "rule_based_check": {
+      "type": "exact_extraction_values",
+      "values": ["INV-2024-8891", "340", "900", "125", "1365", "109.20", "1474.20"]
+    }
+  },
+  {
+    "id": "PROMPT-09",
+    "category": "Instruction Following",
+    "prompt": "Write a product description for an ergonomic office chair following these STRICT constraints:\n1. The response must consist of EXACTLY four sentences.\n2. The first sentence must begin with the word 'Designed'.\n3. The third sentence must contain the word 'lumbar'.\n4. Do NOT use the words 'comfort' or 'comfortable' anywhere in your response.\n5. The fourth sentence must end with the exact phrase 'for every workday.'",
+    "expected_answer_characteristics": "Strict compliance with all 5 negative and positive constraints: 4 sentences; sentence 1 starts with 'Designed'; sentence 3 contains 'lumbar'; zero occurrences of 'comfort'/'comfortable'; sentence 4 ends with 'for every workday.'",
+    "evaluation_criteria": {
+      "instruction_following": 6,
+      "factual_correctness": 1,
+      "formatting": 2,
+      "reasoning_quality": 1
+    },
+    "rule_based_check": {
+      "type": "strict_constraint_verification",
+      "sentence_count": 4,
+      "starts_with": "Designed",
+      "sentence_3_keyword": "lumbar",
+      "forbidden_words": ["comfort", "comfortable"],
+      "ends_with": "for every workday."
+    }
+  },
+  {
+    "id": "PROMPT-10",
+    "category": "Multi-Step Problem Solving",
+    "prompt": "A software engineering team is planning a 2-week sprint with 3 full-time developers.\n- Each developer works 8 hours per day, 5 days per week.\n- Exactly 20% of each developer's total working hours are reserved for meetings, code reviews, and production support.\n- The remaining capacity is dedicated to user story development.\n- The product backlog contains 4 user stories estimated at 24 hours, 32 hours, 18 hours, and 28 hours respectively.\n\nCalculate:\n1. Total gross capacity (hours) of the entire team for the sprint.\n2. Total reserved overhead hours and the net development capacity (hours).\n3. Total estimated hours required to complete all 4 backlog stories.\n4. Can the team complete all 4 stories in this sprint? What is the remaining surplus or deficit of development hours?\nShow each arithmetic calculation step clearly.",
+    "expected_answer_characteristics": "1. Gross capacity = 3 devs * 10 days * 8 hours = 240 hours. 2. Overhead = 20% of 240 = 48 hours; Net dev capacity = 240 - 48 = 192 hours. 3. Story sum = 24 + 32 + 18 + 28 = 102 hours. 4. Yes, team can complete all stories (102 <= 192 hours); Surplus = 192 - 102 = 90 hours.",
+    "evaluation_criteria": {
+      "factual_correctness": 4,
+      "instruction_following": 2,
+      "reasoning_quality": 3,
+      "formatting": 1
+    },
+    "rule_based_check": {
+      "type": "multi_step_arithmetic_match",
+      "gross_hours": 240,
+      "overhead_hours": 48,
+      "net_hours": 192,
+      "story_hours": 102,
+      "surplus_hours": 90,
+      "feasible": true
+    }
+  }
+]
