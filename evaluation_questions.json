@@ -1,0 +1,152 @@
+[
+  {
+    "q_id": 1,
+    "question": "Who serves as the Chairperson of the National Executive Committee (NEC) and what is its mandate?",
+    "expected_document": "NDMA_National_DM_Policy_2009.pdf",
+    "expected_page": 22,
+    "ground_truth_answer": "The Union Home Secretary serves as the Chairperson of the National Executive Committee (NEC). The NEC is the executive committee of the NDMA, mandated to assist the NDMA in the discharge of its functions and coordinate disaster management across central ministries and departments.",
+    "relevant_passage": "The NEC comprises the Union Home Secretary as Chairperson, and the Secretaries to the GoI in the Ministries/Departments... The NEC is the executive committee of the NDMA, and is mandated to assist the NDMA in the discharge of its functions and also ensure compliance of the directions issued by the Central Government.",
+    "chunk_id_300": "NDMA_National_DM_Policy_2009_cfg300_c0013",
+    "chunk_id_600": "NDMA_National_DM_Policy_2009_cfg600_c0007"
+  },
+  {
+    "q_id": 2,
+    "question": "What is the purpose of the National Disaster Response Fund (NDRF) and how are its funds applied?",
+    "expected_document": "NDMA_National_DM_Policy_2009.pdf",
+    "expected_page": 27,
+    "ground_truth_answer": "The National Disaster Response Fund is applied by the National Executive Committee (NEC) towards meeting expenses for emergency response, relief, and rehabilitation in accordance with guidelines laid down by the Central Government in consultation with NDMA.",
+    "relevant_passage": "A National Disaster Response Fund may be constituted as mandated in the Act. The National Disaster Response Fund will be applied by the NEC towards meeting expenses for emergency response, relief and rehabilitation, in accordance with the guidelines laid down by the Central Government in consultation with the NDMA.",
+    "chunk_id_300": "NDMA_National_DM_Policy_2009_cfg300_c0026",
+    "chunk_id_600": "NDMA_National_DM_Policy_2009_cfg600_c0014"
+  },
+  {
+    "q_id": 3,
+    "question": "What key components comprise the strategic approach to Capacity Development in disaster management?",
+    "expected_document": "NDMA_National_DM_Policy_2009.pdf",
+    "expected_page": 45,
+    "ground_truth_answer": "Capacity development comprises awareness generation, education, training, research and development (R&D), putting in place appropriate institutional frameworks, management systems, and allocating resources for efficient prevention and handling of disasters.",
+    "relevant_passage": "A strategic approach to capacity development can be addressed effectively only with the active and enthusiastic participation of the stakeholders. This process comprises awareness generation, education, training, Research and Development (R&D), etc. It further addresses putting in place appropriate institutional framework, management systems and allocation of resources.",
+    "chunk_id_300": "NDMA_National_DM_Policy_2009_cfg300_c0053",
+    "chunk_id_600": "NDMA_National_DM_Policy_2009_cfg600_c0027"
+  },
+  {
+    "q_id": 4,
+    "question": "What is the statutory role, command structure, and composition of the National Disaster Response Force (NDRF)?",
+    "expected_document": "NDMA_National_DM_Policy_2009.pdf",
+    "expected_page": 23,
+    "ground_truth_answer": "The NDRF is constituted under the Act for specialized response to threatening disaster situations and emergencies (including CBRN emergencies). General superintendence, direction, and control are vested in the NDMA, while command and supervision vest in the Director General of Civil Defence and NDRF. It initially comprised eight battalions positioned at strategic locations.",
+    "relevant_passage": "For the purpose of specialised response to a threatening disaster situation or disasters/emergencies both natural and man-made such as those of CBRN origin, the Act has mandated the constitution of a National Disaster Response Force (NDRF). The general superintendence, direction and control of this force shall be vested in and exercised by the NDMA and the command and supervision of the Force shall vest in an officer to be appointed by the Central Government as the Director General of Civil Defence and National Disaster Response Force.",
+    "chunk_id_300": "NDMA_National_DM_Policy_2009_cfg300_c0017",
+    "chunk_id_600": "NDMA_National_DM_Policy_2009_cfg600_c0009"
+  },
+  {
+    "q_id": 5,
+    "question": "What is Rapid Visual Screening (RVS) and what is its role in seismic assessment?",
+    "expected_document": "NDMA_Earthquakes_Guidelines.pdf",
+    "expected_page": 21,
+    "ground_truth_answer": "Rapid Visual Screening (RVS) is a qualitative screening procedure based on visual inspection from the street level to quickly identify structural deficiencies and classify buildings as requiring further detailed structural evaluation or being seismically adequate.",
+    "relevant_passage": "Rapid Visual Screening is a procedure developed for the qualitative assessment of seismic vulnerability of buildings based on visual inspection to identify potential structural deficiencies.",
+    "chunk_id_300": "NDMA_Earthquakes_Guidelines_cfg300_c0012",
+    "chunk_id_600": "NDMA_Earthquakes_Guidelines_cfg600_c0007"
+  },
+  {
+    "q_id": 6,
+    "question": "Why is seismic strengthening and retrofitting of lifeline structures like hospitals and bridges critical?",
+    "expected_document": "NDMA_Earthquakes_Guidelines.pdf",
+    "expected_page": 42,
+    "ground_truth_answer": "Critical lifeline structures such as hospitals, administrative headquarters, emergency operation centers, power stations, water supply networks, and bridges must remain functional during and immediately after an earthquake to enable emergency medical response, rescue operations, and crisis coordination.",
+    "relevant_passage": "Structures of critical importance like hospitals, bridges, telecommunication buildings, water supply systems, power stations, and administrative headquarters must be functional after an earthquake to facilitate emergency response and relief operations.",
+    "chunk_id_300": "NDMA_Earthquakes_Guidelines_cfg300_c0051",
+    "chunk_id_600": "NDMA_Earthquakes_Guidelines_cfg600_c0026"
+  },
+  {
+    "q_id": 7,
+    "question": "What percentage of India's land area is vulnerable to moderate or severe seismic hazard according to IS 1893?",
+    "expected_document": "NDMA_Earthquakes_Guidelines.pdf",
+    "expected_page": 29,
+    "ground_truth_answer": "According to the latest seismic zone map of India (IS 1893: 2002), about 59 percent of India's land area is vulnerable to moderate or severe seismic hazard (Zones III, IV, and V).",
+    "relevant_passage": "According to the latest seismic zone map of India (see Figure 1 – IS:1893, 2002), about 59 per cent of India’s land area is vulnerable to moderate or severe seismic hazard.",
+    "chunk_id_300": "NDMA_Earthquakes_Guidelines_cfg300_c0024",
+    "chunk_id_600": "NDMA_Earthquakes_Guidelines_cfg600_c0013"
+  },
+  {
+    "q_id": 8,
+    "question": "What steps are required to institutionalize earthquake safety education in schools and universities?",
+    "expected_document": "NDMA_Earthquakes_Guidelines.pdf",
+    "expected_page": 55,
+    "ground_truth_answer": "State governments and education boards must integrate earthquake safety and disaster management into curricula for schools, colleges, and polytechnics, conduct regular evacuation drills, and train teachers in emergency response.",
+    "relevant_passage": "State governments will ensure that disaster management education, including earthquake safety, is introduced into school, college and university curricula... Regular mock drills will be conducted in all educational institutions.",
+    "chunk_id_300": "NDMA_Earthquakes_Guidelines_cfg300_c0077",
+    "chunk_id_600": "NDMA_Earthquakes_Guidelines_cfg600_c0039"
+  },
+  {
+    "q_id": 9,
+    "question": "What is the role of the Central Water Commission (CWC) in flood forecasting across India?",
+    "expected_document": "NDMA_Floods_Guidelines.pdf",
+    "expected_page": 48,
+    "ground_truth_answer": "The Central Water Commission (CWC) operates the national flood forecasting network, collecting hydrological and hydro-meteorological data, issuing water level forecasts, and alerting state authorities about impending floods across interstate river basins.",
+    "relevant_passage": "The Central Water Commission’s flood forecasting network in India plays a vital role in providing timely water level and flood forecasts to state administrations and dam authorities for proactive emergency preparedness and reservoir regulation.",
+    "chunk_id_300": "NDMA_Floods_Guidelines_cfg300_c0074",
+    "chunk_id_600": "NDMA_Floods_Guidelines_cfg600_c0037"
+  },
+  {
+    "q_id": 10,
+    "question": "What are the key structural measures used for flood management and mitigating inundation damage?",
+    "expected_document": "NDMA_Floods_Guidelines.pdf",
+    "expected_page": 58,
+    "ground_truth_answer": "Structural flood mitigation measures include the construction and maintenance of embankments, flood walls, ring bunds, storage reservoirs, retarding basins, channel improvements, and drainage improvement schemes.",
+    "relevant_passage": "Structural measures for flood management include embankments, flood walls, ring bunds, retention basins, and channel improvements designed to confine flood flows and protect vulnerable settlements from inundation.",
+    "chunk_id_300": "NDMA_Floods_Guidelines_cfg300_c0096",
+    "chunk_id_600": "NDMA_Floods_Guidelines_cfg600_c0048"
+  },
+  {
+    "q_id": 11,
+    "question": "What is Flood Plain Zoning and what is its objective in non-structural flood regulation?",
+    "expected_document": "NDMA_Floods_Guidelines.pdf",
+    "expected_page": 41,
+    "ground_truth_answer": "Flood Plain Zoning aims to regulate land use in the flood plains to determine the locations and limits of permissible development, reducing economic damage and loss of life by keeping human settlements and high-value installations away from high-hazard flood zones.",
+    "relevant_passage": "Flood Plain Zoning aims at demarcating zones in the flood plains along the rivers based on flood frequencies and regulating development activities within these zones to minimize loss of life and property.",
+    "chunk_id_300": "NDMA_Floods_Guidelines_cfg300_c0060",
+    "chunk_id_600": "NDMA_Floods_Guidelines_cfg600_c0030"
+  },
+  {
+    "q_id": 12,
+    "question": "What causes drainage congestion and water-logging in agricultural and urban flood-prone areas?",
+    "expected_document": "NDMA_Floods_Guidelines.pdf",
+    "expected_page": 34,
+    "ground_truth_answer": "Drainage congestion and water-logging are caused by inadequate waterway capacities, obstruction of natural drainage paths by roads, railway embankments, and canals, urban encroachment into low-lying lands, backwater effects from swollen rivers, and siltation.",
+    "relevant_passage": "Drainage congestion and water-logging are exacerbated by inadequate capacity of drainage channels, obstruction of natural runoff by roads, railway tracks and irrigation channels lacking sufficient cross-drainage waterways, and encroachment into wetlands.",
+    "chunk_id_300": "NDMA_Floods_Guidelines_cfg300_c0040",
+    "chunk_id_600": "NDMA_Floods_Guidelines_cfg600_c0020"
+  },
+  {
+    "q_id": 13,
+    "question": "What are the four components of the World Bank-assisted National Cyclone Risk Mitigation Project (NCRMP)?",
+    "expected_document": "NDMA_Cyclones_Guidelines.pdf",
+    "expected_page": 49,
+    "ground_truth_answer": "NCRMP consists of four components: Component A (Improvement of early warning dissemination system and Last Mile Connectivity), Component B (Cyclone risk mitigation investments including cyclone shelters and saline embankments), Component C (Technical assistance for capacity building and hazard risk assessment), and Component D (Project management and monitoring).",
+    "relevant_passage": "NCRMP consists of the following four components: i) Component A: Improvement of early warning dissemination system by strengthening Last Mile Connectivity (LMC)... ii) Component B: Cyclone risk mitigation investment which has identified nine subcomponents like construction of cyclone shelters, construction of saline embankments... iii) Component C: Technical assistance for cyclone hazard risk reduction... iv) Component D: Project management and monitoring.",
+    "chunk_id_300": "NDMA_Cyclones_Guidelines_cfg300_c0067",
+    "chunk_id_600": "NDMA_Cyclones_Guidelines_cfg600_c0034"
+  },
+  {
+    "q_id": 14,
+    "question": "What operational computing and communication infrastructure is commissioned under the National Disaster Communication Infrastructure (NDCI) for cyclones?",
+    "expected_document": "NDMA_Cyclones_Guidelines.pdf",
+    "expected_page": 27,
+    "ground_truth_answer": "NDCI commissions high-end computing (scalable 30–50 Teraflops peak performance), 800 Terabytes storage, Gigabit Ethernet communication networks, 3D Virtual Reality Visual Studios, and a centralized databank connected to Operations Centers across 84 coastal districts.",
+    "relevant_passage": "Commissioning of the National Disaster Communication Infrastructure (NDCI) at the NDMA/MHA, State Disaster Management Authorities (SDMAs)... covering High End Computing (scalable 30–50 Teraflops peak performance), Storage (800 Terabytes) and Communication Network (Gigabit Ethernet) Infrastructure; 3-D Virtual Reality Visual Studio; Centralised Comprehensive Databank...",
+    "chunk_id_300": "NDMA_Cyclones_Guidelines_cfg300_c0029",
+    "chunk_id_600": "NDMA_Cyclones_Guidelines_cfg600_c0015"
+  },
+  {
+    "q_id": 15,
+    "question": "How do natural bio-shields, mangroves, and coastal shelterbelts mitigate cyclone and storm surge hazards?",
+    "expected_document": "NDMA_Cyclones_Guidelines.pdf",
+    "expected_page": 102,
+    "ground_truth_answer": "Natural bio-shields, mangroves, and coastal shelterbelt plantations absorb wave energy, attenuate storm surge velocity, act as windbreaks, stabilize shoreline sand dunes against erosion, and protect hinterland settlements from direct cyclonic destruction.",
+    "relevant_passage": "Coastal areas are endowed with a wide range of coastal ecosystems... A holistic approach to Coastal Zone Management (CZM), including protecting and restoring natural bio-shields etc., can minimise loss of life and damage to property to a considerable extent... Setback requirements and bio-shields protect beachfront structures from erosion and storm waves.",
+    "chunk_id_300": "NDMA_Cyclones_Guidelines_cfg300_c0190",
+    "chunk_id_600": "NDMA_Cyclones_Guidelines_cfg600_c0096"
+  }
+]

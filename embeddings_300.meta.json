@@ -1,0 +1,8 @@
+{
+  "chunks_file": "chunks_300.jsonl",
+  "chunks_hash": "4d09e2a9735c8b09ce11e303f12f032c43e88feaa51313cf0358f33377117a0e",
+  "num_chunks": 857,
+  "embedding_dim": 384,
+  "model_name": "sentence-transformers/all-MiniLM-L6-v2",
+  "normalized": true
+}

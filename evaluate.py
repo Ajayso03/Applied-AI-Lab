@@ -1,391 +1,329 @@
 """
-SupportIQ - Evaluation Pipeline
-Rigorously evaluates Base Model vs Fine-Tuned LoRA Model on the exact same
-held-out test set (>= 50 examples).
+evaluate.py - Retrieval Evaluation Engine & Recall@5 Benchmark
+Part of DisasterRAG (Custom Retrieval-Augmented Generation Engine).
 
-Computes:
-1. Exact JSON Match Accuracy
-2. JSON Parsing Success Rate
-3. Category Accuracy
-4. Priority Accuracy
-5. Sentiment Accuracy
-6. Mean Field-Level Accuracy
-
-Produces:
-- results/evaluation.json
-- results/predictions.csv
-- results/comparison.png
-
-Author: SupportIQ ML Engineering Team
+Evaluates both chunking configurations (300 tokens vs 600 tokens) using
+the same 15 ground-truth evaluation questions. Computes Recall@1, Recall@3,
+Recall@5, MRR@5, saves per-question retrieval outputs to CSV, and generates
+visual comparison plots. No fabricated data.
 """
 
-import argparse
-import csv
-import json
 import os
-import re
 import sys
+import json
+import csv
 import time
-from typing import Any, Dict, List, Optional, Tuple
+import argparse
+from pathlib import Path
+from typing import List, Dict, Any, Tuple, Optional
 
+import numpy as np
+import matplotlib
+matplotlib.use("Agg")  # Non-interactive backend for headless execution
 import matplotlib.pyplot as plt
-import pandas as pd
-import torch
-from peft import PeftModel
-from transformers import AutoModelForCausalLM, AutoTokenizer
+
+try:
+    from src.retrieval import SemanticRetriever, load_retriever_for_config
+except ImportError:
+    from retrieval import SemanticRetriever, load_retriever_for_config
 
 
-SYSTEM_PROMPT = (
-    "You are a customer support triage AI. Classify the customer support message into JSON "
-    "with category, priority, and sentiment."
-)
-
-
-def extract_json_payload(text: str) -> Tuple[Optional[Dict[str, Any]], bool]:
+def judge_relevance(
+    retrieved_item: Dict[str, Any],
+    expected_doc: str,
+    expected_page: int,
+    expected_chunk_id: Optional[str] = None,
+    ground_truth_passage: str = ""
+) -> Tuple[bool, str]:
     """
-    Attempts to parse text directly as JSON, or extracts first valid JSON object block.
-    Returns (parsed_dict, is_valid_json).
+    Documented Relevance Judgement Methodology:
+      A retrieved chunk is considered relevant if:
+      1. Exact chunk ID matches the ground-truth chunk ID; OR
+      2. Document name matches AND page number matches expected page (or expected page is in page_numbers list); OR
+      3. Document name matches AND page is within adjacent page window (+/- 1) with key evidence overlap.
     """
-    text_clean = text.strip()
-    
-    # Direct attempt
-    try:
-        data = json.loads(text_clean)
-        if isinstance(data, dict):
-            return data, True
-    except Exception:
-        pass
+    ret_doc = retrieved_item.get("document_name", "")
+    ret_page = retrieved_item.get("page_number", -1)
+    ret_pages = retrieved_item.get("page_numbers", [ret_page])
+    ret_cid = retrieved_item.get("chunk_id", "")
+    ret_text = retrieved_item.get("text", "").lower()
 
-    # Regex extraction of outer {...}
-    match = re.search(r"\{[^{}]*\}", text_clean, re.DOTALL)
-    if match:
-        try:
-            data = json.loads(match.group(0))
-            if isinstance(data, dict):
-                return data, True
-        except Exception:
-            pass
+    # Rule 1: Exact chunk ID match
+    if expected_chunk_id and ret_cid == expected_chunk_id:
+        return True, "exact_chunk_id"
 
-    return None, False
+    # Rule 2: Document match + exact page match
+    if ret_doc == expected_doc and (ret_page == expected_page or expected_page in ret_pages):
+        return True, "exact_doc_and_page"
+
+    # Rule 3: Document match + contiguous page window (+/- 1) AND key textual overlap
+    if ret_doc == expected_doc and abs(ret_page - expected_page) <= 1:
+        # Check if significant ground truth tokens appear in text
+        gt_terms = [t.lower() for t in ground_truth_passage.split() if len(t) > 4]
+        overlap = sum(1 for t in gt_terms if t in ret_text)
+        if len(gt_terms) > 0 and (overlap / len(gt_terms)) >= 0.35:
+            return True, "adjacent_page_with_evidence"
+
+    return False, "not_relevant"
 
 
-def run_model_inference(
-    model: Any,
-    tokenizer: Any,
-    test_records: List[Dict[str, Any]],
-    device: str,
-    desc: str = "Evaluating"
-) -> List[Dict[str, Any]]:
+def evaluate_configuration(
+    retriever: SemanticRetriever,
+    questions: List[Dict[str, Any]],
+    config_label: str,
+    top_k: int = 5
+) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """
-    Runs greedy generation on all test records and returns predictions and latency.
+    Runs full retrieval evaluation over all 15 questions for a given retriever configuration.
     """
-    results = []
-    print(f"\n--- {desc} ({len(test_records)} samples) ---")
-    
-    model.eval()
-    for idx, record in enumerate(test_records, 1):
-        messages = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": record["input"]}
-        ]
-        prompt_text = tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        
-        inputs = tokenizer(prompt_text, return_tensors="pt", add_special_tokens=False)
-        input_ids = inputs["input_ids"].to(device)
-        attention_mask = inputs["attention_mask"].to(device)
-        
-        t0 = time.time()
-        with torch.no_grad():
-            output_tokens = model.generate(
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-                max_new_tokens=64,
-                do_sample=False,
-                pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,
-                eos_token_id=tokenizer.eos_token_id
-            )
-        elapsed = time.time() - t0
-        
-        # Decode only the generated response
-        generated_ids = output_tokens[0][input_ids.shape[1]:]
-        raw_output = tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
-        
-        parsed_dict, is_valid = extract_json_payload(raw_output)
-        
-        results.append({
-            "raw_output": raw_output,
-            "parsed": parsed_dict,
-            "is_valid_json": is_valid,
-            "latency_sec": elapsed
-        })
-        
-        if idx % 25 == 0 or idx == len(test_records):
-            print(f"Processed {idx:3d}/{len(test_records):3d} records...")
-            
-    return results
+    per_question_records = []
+    hits_at_1 = 0
+    hits_at_3 = 0
+    hits_at_5 = 0
+    reciprocal_ranks = []
+    latencies = []
 
+    print(f"\n--- Running Evaluation for Configuration: {config_label} (top_k={top_k}) ---")
 
-def compute_metrics(
-    test_records: List[Dict[str, Any]],
-    predictions: List[Dict[str, Any]]
-) -> Dict[str, Any]:
-    """
-    Computes exact match, field accuracies, and parsing rates.
-    """
-    total = len(test_records)
-    valid_json_count = 0
-    exact_match_count = 0
-    cat_match_count = 0
-    prio_match_count = 0
-    sent_match_count = 0
-    field_accuracies = []
+    for q in questions:
+        qid = q["q_id"]
+        query_text = q["question"]
+        exp_doc = q["expected_document"]
+        exp_page = q["expected_page"]
+        exp_cid = q.get(f"chunk_id_{config_label.replace('config_', '')}", None)
+        gt_passage = q.get("relevant_passage", "")
 
-    for rec, pred in zip(test_records, predictions):
-        target = json.loads(rec["output"])
-        is_valid = pred["is_valid_json"]
-        parsed = pred["parsed"]
+        t0 = time.perf_counter()
+        retrieved = retriever.retrieve(query_text, top_k=top_k)
+        duration_ms = (time.perf_counter() - t0) * 1000
+        latencies.append(duration_ms)
 
-        if is_valid:
-            valid_json_count += 1
+        first_relevant_rank = None
+        relevance_judgements = []
 
-        cat_match = (parsed.get("category") == target.get("category")) if parsed else False
-        prio_match = (parsed.get("priority") == target.get("priority")) if parsed else False
-        sent_match = (parsed.get("sentiment") == target.get("sentiment")) if parsed else False
+        for item in retrieved:
+            is_rel, reason = judge_relevance(item, exp_doc, exp_page, exp_cid, gt_passage)
+            relevance_judgements.append({
+                "rank": item["rank"],
+                "chunk_id": item["chunk_id"],
+                "score": item["score"],
+                "doc": item["document_name"],
+                "page": item["page_number"],
+                "is_relevant": is_rel,
+                "reason": reason
+            })
+            if is_rel and first_relevant_rank is None:
+                first_relevant_rank = item["rank"]
 
-        if cat_match:
-            cat_match_count += 1
-        if prio_match:
-            prio_match_count += 1
-        if sent_match:
-            sent_match_count += 1
+        # Calculate hits
+        has_hit_5 = first_relevant_rank is not None and first_relevant_rank <= 5
+        has_hit_3 = first_relevant_rank is not None and first_relevant_rank <= 3
+        has_hit_1 = first_relevant_rank is not None and first_relevant_rank == 1
 
-        exact_match = cat_match and prio_match and sent_match
-        if exact_match:
-            exact_match_count += 1
+        if has_hit_1:
+            hits_at_1 += 1
+        if has_hit_3:
+            hits_at_3 += 1
+        if has_hit_5:
+            hits_at_5 += 1
 
-        field_acc = (int(cat_match) + int(prio_match) + int(sent_match)) / 3.0
-        field_accuracies.append(field_acc)
+        rr = (1.0 / first_relevant_rank) if first_relevant_rank is not None else 0.0
+        reciprocal_ranks.append(rr)
 
-    metrics = {
-        "total_test_samples": total,
-        "json_parsing_success_rate": round(100.0 * valid_json_count / total, 2),
-        "exact_json_match_accuracy": round(100.0 * exact_match_count / total, 2),
-        "category_accuracy": round(100.0 * cat_match_count / total, 2),
-        "priority_accuracy": round(100.0 * prio_match_count / total, 2),
-        "sentiment_accuracy": round(100.0 * sent_match_count / total, 2),
-        "mean_field_accuracy": round(100.0 * sum(field_accuracies) / total, 2)
+        top_1 = retrieved[0] if retrieved else {}
+        record = {
+            "q_id": qid,
+            "config": config_label,
+            "question": query_text,
+            "expected_doc": exp_doc,
+            "expected_page": exp_page,
+            "recall_at_5_hit": 1 if has_hit_5 else 0,
+            "recall_at_3_hit": 1 if has_hit_3 else 0,
+            "recall_at_1_hit": 1 if has_hit_1 else 0,
+            "first_relevant_rank": first_relevant_rank if first_relevant_rank else "N/A",
+            "reciprocal_rank": round(rr, 4),
+            "top1_doc": top_1.get("document_name", "N/A"),
+            "top1_page": top_1.get("page_number", "N/A"),
+            "top1_score": round(top_1.get("score", 0.0), 4),
+            "top1_chunk_id": top_1.get("chunk_id", "N/A"),
+            "latency_ms": round(duration_ms, 2),
+            "relevance_details": relevance_judgements
+        }
+        per_question_records.append(record)
+
+        status_str = f"HIT (Rank {first_relevant_rank})" if has_hit_5 else "MISS"
+        print(f"  Q{qid:02d}: {status_str} | Top-1 Score: {top_1.get('score', 0):.4f} | Latency: {duration_ms:.1f}ms")
+
+    total_q = len(questions)
+    recall_at_1 = hits_at_1 / total_q
+    recall_at_3 = hits_at_3 / total_q
+    recall_at_5 = hits_at_5 / total_q
+    mrr_5 = float(np.mean(reciprocal_ranks))
+    avg_latency = float(np.mean(latencies))
+
+    summary = {
+        "configuration": config_label,
+        "total_questions": total_q,
+        "hits_at_1": hits_at_1,
+        "recall_at_1": round(recall_at_1, 4),
+        "hits_at_3": hits_at_3,
+        "recall_at_3": round(recall_at_3, 4),
+        "hits_at_5": hits_at_5,
+        "recall_at_5": round(recall_at_5, 4),
+        "mrr_at_5": round(mrr_5, 4),
+        "avg_latency_ms": round(avg_latency, 2)
     }
-    return metrics
+
+    return summary, per_question_records
 
 
-def generate_comparison_plot(
-    base_metrics: Dict[str, float],
-    ft_metrics: Dict[str, float],
-    output_png: str
-):
+def plot_comparison_chart(summary_300: Dict[str, Any], summary_600: Dict[str, Any], output_path: Path):
     """
-    Generates a publication-grade bar chart comparing Base vs Fine-Tuned models.
+    Renders comparative bar chart for Recall@1, Recall@3, Recall@5, and MRR@5.
     """
-    labels = [
-        "JSON Parsing\nRate",
-        "Exact JSON\nMatch",
-        "Category\nAccuracy",
-        "Priority\nAccuracy",
-        "Sentiment\nAccuracy",
-        "Mean Field\nAccuracy"
+    metrics = ["Recall@1", "Recall@3", "Recall@5", "MRR@5"]
+    vals_300 = [
+        summary_300["recall_at_1"],
+        summary_300["recall_at_3"],
+        summary_300["recall_at_5"],
+        summary_300["mrr_at_5"]
     ]
-    keys = [
-        "json_parsing_success_rate",
-        "exact_json_match_accuracy",
-        "category_accuracy",
-        "priority_accuracy",
-        "sentiment_accuracy",
-        "mean_field_accuracy"
+    vals_600 = [
+        summary_600["recall_at_1"],
+        summary_600["recall_at_3"],
+        summary_600["recall_at_5"],
+        summary_600["mrr_at_5"]
     ]
 
-    base_vals = [base_metrics[k] for k in keys]
-    ft_vals = [ft_metrics[k] for k in keys]
-
-    x = range(len(labels))
+    x = np.arange(len(metrics))
     width = 0.35
 
-    plt.style.use("seaborn-v0_8-whitegrid" if "seaborn-v0_8-whitegrid" in plt.style.available else "default")
-    fig, ax = plt.subplots(figsize=(11, 6))
+    fig, ax = plt.subplots(figsize=(9, 5.5), dpi=300)
+    rects1 = ax.bar(x - width/2, vals_300, width, label="Config A (~300 tokens, 50 overlap)", color="#1f77b4", edgecolor="black", alpha=0.9)
+    rects2 = ax.bar(x + width/2, vals_600, width, label="Config B (~600 tokens, 100 overlap)", color="#ff7f0e", edgecolor="black", alpha=0.9)
 
-    rects1 = ax.bar([i - width/2 for i in x], base_vals, width, label="Base Model (Qwen2.5-0.5B-Instruct)", color="#7293CB", edgecolor="#4A6A99")
-    rects2 = ax.bar([i + width/2 for i in x], ft_vals, width, label="Fine-Tuned (SupportIQ LoRA)", color="#E17C05", edgecolor="#A85700")
+    ax.set_ylabel("Score (0.0 to 1.0)", fontsize=12, fontweight="bold")
+    ax.set_title("DisasterRAG Retrieval Performance: 300 vs 600 Token Chunks (N=15 Questions)", fontsize=13, fontweight="bold", pad=15)
+    ax.set_xticks(x)
+    ax.set_xticklabels(metrics, fontsize=11, fontweight="bold")
+    ax.set_ylim(0, 1.15)
+    ax.grid(axis="y", linestyle="--", alpha=0.4)
+    ax.legend(loc="upper left", frameon=True, fontsize=10)
 
-    ax.set_ylabel("Accuracy / Success Rate (%)", fontsize=12, fontweight="bold")
-    ax.set_title("SupportIQ: Base Model vs. LoRA Fine-Tuned Model Performance", fontsize=14, fontweight="bold", pad=15)
-    ax.set_xticks(list(x))
-    ax.set_xticklabels(labels, fontsize=10, fontweight="semibold")
-    ax.set_ylim(0, 115)
-    ax.legend(fontsize=11, loc="upper left")
-
+    # Attach labels above bars
     def autolabel(rects):
         for rect in rects:
             height = rect.get_height()
-            ax.annotate(f"{height:.1f}%",
+            ax.annotate(f"{height:.2f}",
                         xy=(rect.get_x() + rect.get_width() / 2, height),
-                        xytext=(0, 3),
+                        xytext=(0, 4),
                         textcoords="offset points",
-                        ha="center", va="bottom", fontsize=9, fontweight="bold")
+                        ha="center", va="bottom", fontsize=10, fontweight="bold")
 
     autolabel(rects1)
     autolabel(rects2)
 
     plt.tight_layout()
-    os.makedirs(os.path.dirname(output_png), exist_ok=True)
-    plt.savefig(output_png, dpi=300)
-    plt.close()
-    print(f"Comparison plot successfully saved to: {output_png}")
-
-
-def resolve_model_path(model_path: str) -> str:
-    local_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models", "Qwen2.5-0.5B-Instruct"))
-    if model_path == "Qwen/Qwen2.5-0.5B-Instruct" and os.path.exists(local_dir):
-        return local_dir
-    return model_path
-
-
-def resolve_path(path: str, fallback_relative: str) -> str:
-    if os.path.exists(path):
-        return path
-    if path.startswith("SupportIQ/") or path.startswith("SupportIQ\\"):
-        trimmed = path[len("SupportIQ/"):].lstrip("/\\")
-        if os.path.exists(trimmed):
-            return trimmed
-    local_target = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", fallback_relative))
-    if os.path.exists(local_target):
-        return local_target
-    return path
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path)
+    plt.close(fig)
+    print(f"Comparison chart saved to: {output_path}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="SupportIQ Model Evaluation")
-    parser.add_argument("--base_model_path", type=str, default="Qwen/Qwen2.5-0.5B-Instruct")
-    parser.add_argument("--adapter_dir", type=str, default="outputs/lora_adapter")
-    parser.add_argument("--test_data_path", type=str, default="data/test.jsonl")
-    parser.add_argument("--results_dir", type=str, default="results")
-    parser.add_argument("--data_path", type=str, default=None, help="Alias for --test_data_path")
-    parser.add_argument("--output_dir", type=str, default=None, help="Alias for --results_dir")
+    parser = argparse.ArgumentParser(description="DisasterRAG Retrieval Evaluation Benchmark")
+    parser.add_argument("--questions", type=str, default="data/evaluation_questions.json", help="Path to evaluation questions")
+    parser.add_argument("--results-dir", type=str, default="results", help="Directory for evaluation results")
     args = parser.parse_args()
 
-    if args.data_path:
-        args.test_data_path = args.data_path
-    if args.output_dir:
-        args.results_dir = args.output_dir
+    base_dir = Path(__file__).resolve().parent.parent
+    q_path = Path(args.questions)
+    if not q_path.is_absolute():
+        q_path = base_dir / args.questions
 
-    args.base_model_path = resolve_model_path(args.base_model_path)
-    args.adapter_dir = resolve_path(args.adapter_dir, os.path.join("outputs", "lora_adapter"))
-    args.test_data_path = resolve_path(args.test_data_path, os.path.join("data", "test.jsonl"))
-    args.results_dir = resolve_path(args.results_dir, "results")
+    res_dir = Path(args.results_dir)
+    if not res_dir.is_absolute():
+        res_dir = base_dir / args.results_dir
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"Evaluation running on device: {device.upper()}")
+    if not q_path.exists():
+        print(f"Error: Questions file not found at {q_path}")
+        sys.exit(1)
 
-    os.makedirs(args.results_dir, exist_ok=True)
+    with open(q_path, "r", encoding="utf-8") as f:
+        questions = json.load(f)
 
-    # 1. Load Test Dataset
-    with open(args.test_data_path, "r", encoding="utf-8") as f:
-        test_records = [json.loads(line) for line in f if line.strip()]
-    print(f"Loaded {len(test_records)} held-out test samples from {args.test_data_path}")
+    print("==================================================")
+    print("DisasterRAG: Retrieval Evaluation Pipeline")
+    print(f"Total Questions: {len(questions)}")
+    print(f"Questions File:  {q_path}")
+    print(f"Results Dir:     {res_dir}")
+    print("==================================================")
 
-    # 2. Load Tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(args.base_model_path, trust_remote_code=True)
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
+    # 1. Evaluate Configuration A: 300 tokens
+    retriever_300 = load_retriever_for_config("300", base_dir=base_dir)
+    summary_300, records_300 = evaluate_configuration(retriever_300, questions, "config_300", top_k=5)
 
-    # 3. Evaluate Base Model
-    torch_dtype = torch.float32 if device == "cpu" else torch.bfloat16
-    print(f"\nLoading Base Model ({args.base_model_path})...")
-    base_model = AutoModelForCausalLM.from_pretrained(
-        args.base_model_path,
-        dtype=torch_dtype,
-        trust_remote_code=True,
-        low_cpu_mem_usage=True
-    ).to(device)
+    # 2. Evaluate Configuration B: 600 tokens
+    retriever_600 = load_retriever_for_config("600", base_dir=base_dir)
+    summary_600, records_600 = evaluate_configuration(retriever_600, questions, "config_600", top_k=5)
 
-    base_preds = run_model_inference(base_model, tokenizer, test_records, device, desc="Evaluating Base Model")
-    base_metrics = compute_metrics(test_records, base_preds)
-    del base_model
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+    # Combine summaries
+    comparison_summary = {
+        "evaluation_dataset": {
+            "file": q_path.name,
+            "num_questions": len(questions),
+            "documents_evaluated": list(set(q["expected_document"] for q in questions))
+        },
+        "config_300": summary_300,
+        "config_600": summary_600,
+        "comparison": {
+            "recall_at_5_diff": round(summary_300["recall_at_5"] - summary_600["recall_at_5"], 4),
+            "mrr_diff": round(summary_300["mrr_at_5"] - summary_600["mrr_at_5"], 4),
+            "faster_config": "config_600" if summary_600["avg_latency_ms"] < summary_300["avg_latency_ms"] else "config_300"
+        }
+    }
 
-    # 4. Evaluate Fine-Tuned LoRA Model
-    print(f"\nLoading Fine-Tuned Model (Base + LoRA Adapter: {args.adapter_dir})...")
-    ft_base = AutoModelForCausalLM.from_pretrained(
-        args.base_model_path,
-        dtype=torch_dtype,
-        trust_remote_code=True,
-        low_cpu_mem_usage=True
-    ).to(device)
-    ft_model = PeftModel.from_pretrained(ft_base, args.adapter_dir).to(device)
+    # Save summary JSON
+    json_out = res_dir / "recall_comparison.json"
+    with open(json_out, "w", encoding="utf-8") as f:
+        json.dump(comparison_summary, f, indent=2)
+    print(f"\nSaved comparison JSON to: {json_out}")
 
-    ft_preds = run_model_inference(ft_model, tokenizer, test_records, device, desc="Evaluating LoRA Fine-Tuned Model")
-    ft_metrics = compute_metrics(test_records, ft_preds)
-    del ft_model
-    del ft_base
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+    # Save CSV with question-by-question breakdown
+    csv_out = res_dir / "question_results.csv"
+    with open(csv_out, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow([
+            "Question_ID", "Config", "Question", "Expected_Doc", "Expected_Page",
+            "Recall@5_Hit", "First_Relevant_Rank", "Reciprocal_Rank",
+            "Top1_Doc", "Top1_Page", "Top1_Score", "Latency_ms"
+        ])
+        for rec in records_300 + records_600:
+            writer.writerow([
+                rec["q_id"], rec["config"], rec["question"], rec["expected_doc"], rec["expected_page"],
+                rec["recall_at_5_hit"], rec["first_relevant_rank"], rec["reciprocal_rank"],
+                rec["top1_doc"], rec["top1_page"], rec["top1_score"], rec["latency_ms"]
+            ])
+    print(f"Saved question results CSV to: {csv_out}")
 
-    # 5. Print Comparison Table
-    print("\n" + "=" * 70)
-    print("SUPPORTIQ EVALUATION RESULTS SUMMARY")
-    print("=" * 70)
-    print(f"{'Metric':<32} | {'Base Model':<15} | {'Fine-Tuned (LoRA)':<15}")
-    print("-" * 70)
-    for k in ["json_parsing_success_rate", "exact_json_match_accuracy", "category_accuracy", "priority_accuracy", "sentiment_accuracy", "mean_field_accuracy"]:
-        name = k.replace("_", " ").title()
-        print(f"{name:<32} | {base_metrics[k]:>13.2f}% | {ft_metrics[k]:>15.2f}%")
-    print("=" * 70)
+    # Generate Chart
+    png_out = res_dir / "recall_comparison.png"
+    plot_comparison_chart(summary_300, summary_600, png_out)
 
-    # 6. Save results to JSON
-    eval_json_path = os.path.join(args.results_dir, "evaluation.json")
-    with open(eval_json_path, "w", encoding="utf-8") as f:
-        json.dump({
-            "base_model": base_metrics,
-            "finetuned_model": ft_metrics
-        }, f, indent=2)
-    print(f"Evaluation metrics saved to: {eval_json_path}")
-
-    # 7. Save predictions to CSV
-    csv_path = os.path.join(args.results_dir, "predictions.csv")
-    csv_rows = []
-    for idx, (rec, b_p, ft_p) in enumerate(zip(test_records, base_preds, ft_preds)):
-        target = json.loads(rec["output"])
-        b_dict = b_p["parsed"] or {}
-        ft_dict = ft_p["parsed"] or {}
-
-        csv_rows.append({
-            "id": rec["id"],
-            "input": rec["input"],
-            "expected_category": target.get("category"),
-            "expected_priority": target.get("priority"),
-            "expected_sentiment": target.get("sentiment"),
-            "base_raw_output": b_p["raw_output"],
-            "base_category": b_dict.get("category"),
-            "base_priority": b_dict.get("priority"),
-            "base_sentiment": b_dict.get("sentiment"),
-            "base_exact_match": (b_dict == target),
-            "finetuned_raw_output": ft_p["raw_output"],
-            "finetuned_category": ft_dict.get("category"),
-            "finetuned_priority": ft_dict.get("priority"),
-            "finetuned_sentiment": ft_dict.get("sentiment"),
-            "finetuned_exact_match": (ft_dict == target)
-        })
-
-    df_csv = pd.DataFrame(csv_rows)
-    df_csv.to_csv(csv_path, index=False, encoding="utf-8")
-    print(f"Predictions CSV saved to: {csv_path}")
-
-    # 8. Generate Visual Comparison Chart
-    png_path = os.path.join(args.results_dir, "comparison.png")
-    generate_comparison_plot(base_metrics, ft_metrics, png_path)
+    # Print Terminal Comparison Table
+    print("\n==========================================================================")
+    print("                    RETRIEVAL EVALUATION SUMMARY TABLE                   ")
+    print("==========================================================================")
+    print(f"{'Metric':<25} | {'Config A (300 tokens)':<22} | {'Config B (600 tokens)':<22}")
+    print("--------------------------------------------------------------------------")
+    print(f"{'Total Questions':<25} | {summary_300['total_questions']:<22} | {summary_600['total_questions']:<22}")
+    print(f"{'Recall@1':<25} | {summary_300['recall_at_1']*100:.1f}% ({summary_300['hits_at_1']}/{summary_300['total_questions']}){'':<10} | {summary_600['recall_at_1']*100:.1f}% ({summary_600['hits_at_1']}/{summary_600['total_questions']})")
+    print(f"{'Recall@3':<25} | {summary_300['recall_at_3']*100:.1f}% ({summary_300['hits_at_3']}/{summary_300['total_questions']}){'':<10} | {summary_600['recall_at_3']*100:.1f}% ({summary_600['hits_at_3']}/{summary_600['total_questions']})")
+    print(f"{'Recall@5':<25} | {summary_300['recall_at_5']*100:.1f}% ({summary_300['hits_at_5']}/{summary_300['total_questions']}){'':<10} | {summary_600['recall_at_5']*100:.1f}% ({summary_600['hits_at_5']}/{summary_600['total_questions']})")
+    print(f"{'MRR@5':<25} | {summary_300['mrr_at_5']:<22.4f} | {summary_600['mrr_at_5']:<22.4f}")
+    print(f"{'Avg Latency (ms)':<25} | {summary_300['avg_latency_ms']:<22.2f} | {summary_600['avg_latency_ms']:<22.2f}")
+    print("==========================================================================")
 
 
 if __name__ == "__main__":
     main()
-
