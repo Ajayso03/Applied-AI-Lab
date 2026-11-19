@@ -1,0 +1,41 @@
+{
+  "evaluation_dataset": {
+    "file": "evaluation_questions.json",
+    "num_questions": 15,
+    "documents_evaluated": [
+      "NDMA_Cyclones_Guidelines.pdf",
+      "NDMA_Floods_Guidelines.pdf",
+      "NDMA_Earthquakes_Guidelines.pdf",
+      "NDMA_National_DM_Policy_2009.pdf"
+    ]
+  },
+  "config_300": {
+    "configuration": "config_300",
+    "total_questions": 15,
+    "hits_at_1": 4,
+    "recall_at_1": 0.2667,
+    "hits_at_3": 11,
+    "recall_at_3": 0.7333,
+    "hits_at_5": 12,
+    "recall_at_5": 0.8,
+    "mrr_at_5": 0.5056,
+    "avg_latency_ms": 26.1
+  },
+  "config_600": {
+    "configuration": "config_600",
+    "total_questions": 15,
+    "hits_at_1": 8,
+    "recall_at_1": 0.5333,
+    "hits_at_3": 10,
+    "recall_at_3": 0.6667,
+    "hits_at_5": 12,
+    "recall_at_5": 0.8,
+    "mrr_at_5": 0.6333,
+    "avg_latency_ms": 21.21
+  },
+  "comparison": {
+    "recall_at_5_diff": 0.0,
+    "mrr_diff": -0.1277,
+    "faster_config": "config_600"
+  }
+}

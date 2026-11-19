@@ -1,0 +1,31 @@
+Question_ID,Config,Question,Expected_Doc,Expected_Page,Recall@5_Hit,First_Relevant_Rank,Reciprocal_Rank,Top1_Doc,Top1_Page,Top1_Score,Latency_ms
+1,config_300,Who serves as the Chairperson of the National Executive Committee (NEC) and what is its mandate?,NDMA_National_DM_Policy_2009.pdf,22,1,3,0.3333,NDMA_Floods_Guidelines.pdf,47,0.6015,36.28
+2,config_300,What is the purpose of the National Disaster Response Fund (NDRF) and how are its funds applied?,NDMA_National_DM_Policy_2009.pdf,27,1,4,0.25,NDMA_Cyclones_Guidelines.pdf,45,0.7154,24.44
+3,config_300,What key components comprise the strategic approach to Capacity Development in disaster management?,NDMA_National_DM_Policy_2009.pdf,45,1,2,0.5,NDMA_Cyclones_Guidelines.pdf,151,0.775,60.22
+4,config_300,"What is the statutory role, command structure, and composition of the National Disaster Response Force (NDRF)?",NDMA_National_DM_Policy_2009.pdf,23,1,1,1.0,NDMA_National_DM_Policy_2009.pdf,23,0.8171,26.56
+5,config_300,What is Rapid Visual Screening (RVS) and what is its role in seismic assessment?,NDMA_Earthquakes_Guidelines.pdf,21,1,2,0.5,NDMA_Earthquakes_Guidelines.pdf,42,0.5635,23.39
+6,config_300,Why is seismic strengthening and retrofitting of lifeline structures like hospitals and bridges critical?,NDMA_Earthquakes_Guidelines.pdf,42,0,N/A,0.0,NDMA_Earthquakes_Guidelines.pdf,41,0.6714,30.21
+7,config_300,What percentage of India's land area is vulnerable to moderate or severe seismic hazard according to IS 1893?,NDMA_Earthquakes_Guidelines.pdf,29,1,2,0.5,NDMA_Earthquakes_Guidelines.pdf,23,0.6843,23.41
+8,config_300,What steps are required to institutionalize earthquake safety education in schools and universities?,NDMA_Earthquakes_Guidelines.pdf,55,1,2,0.5,NDMA_Earthquakes_Guidelines.pdf,57,0.6593,25.95
+9,config_300,What is the role of the Central Water Commission (CWC) in flood forecasting across India?,NDMA_Floods_Guidelines.pdf,48,1,1,1.0,NDMA_Floods_Guidelines.pdf,49,0.7454,19.51
+10,config_300,What are the key structural measures used for flood management and mitigating inundation damage?,NDMA_Floods_Guidelines.pdf,58,1,1,1.0,NDMA_Floods_Guidelines.pdf,58,0.7198,19.69
+11,config_300,What is Flood Plain Zoning and what is its objective in non-structural flood regulation?,NDMA_Floods_Guidelines.pdf,41,0,N/A,0.0,NDMA_Floods_Guidelines.pdf,78,0.7493,19.92
+12,config_300,What causes drainage congestion and water-logging in agricultural and urban flood-prone areas?,NDMA_Floods_Guidelines.pdf,34,1,2,0.5,NDMA_Floods_Guidelines.pdf,60,0.6587,19.61
+13,config_300,What are the four components of the World Bank-assisted National Cyclone Risk Mitigation Project (NCRMP)?,NDMA_Cyclones_Guidelines.pdf,49,1,1,1.0,NDMA_Cyclones_Guidelines.pdf,49,0.7772,21.18
+14,config_300,What operational computing and communication infrastructure is commissioned under the National Disaster Communication Infrastructure (NDCI) for cyclones?,NDMA_Cyclones_Guidelines.pdf,27,1,2,0.5,NDMA_Cyclones_Guidelines.pdf,66,0.7306,20.19
+15,config_300,"How do natural bio-shields, mangroves, and coastal shelterbelts mitigate cyclone and storm surge hazards?",NDMA_Cyclones_Guidelines.pdf,102,0,N/A,0.0,NDMA_Cyclones_Guidelines.pdf,115,0.683,21.0
+1,config_600,Who serves as the Chairperson of the National Executive Committee (NEC) and what is its mandate?,NDMA_National_DM_Policy_2009.pdf,22,1,2,0.5,NDMA_Floods_Guidelines.pdf,47,0.6015,24.73
+2,config_600,What is the purpose of the National Disaster Response Fund (NDRF) and how are its funds applied?,NDMA_National_DM_Policy_2009.pdf,27,1,4,0.25,NDMA_Cyclones_Guidelines.pdf,45,0.7154,23.98
+3,config_600,What key components comprise the strategic approach to Capacity Development in disaster management?,NDMA_National_DM_Policy_2009.pdf,45,1,1,1.0,NDMA_National_DM_Policy_2009.pdf,45,0.7419,19.18
+4,config_600,"What is the statutory role, command structure, and composition of the National Disaster Response Force (NDRF)?",NDMA_National_DM_Policy_2009.pdf,23,1,1,1.0,NDMA_National_DM_Policy_2009.pdf,23,0.8171,20.26
+5,config_600,What is Rapid Visual Screening (RVS) and what is its role in seismic assessment?,NDMA_Earthquakes_Guidelines.pdf,21,0,N/A,0.0,NDMA_Earthquakes_Guidelines.pdf,51,0.4089,20.76
+6,config_600,Why is seismic strengthening and retrofitting of lifeline structures like hospitals and bridges critical?,NDMA_Earthquakes_Guidelines.pdf,42,1,1,1.0,NDMA_Earthquakes_Guidelines.pdf,41,0.6714,19.84
+7,config_600,What percentage of India's land area is vulnerable to moderate or severe seismic hazard according to IS 1893?,NDMA_Earthquakes_Guidelines.pdf,29,1,1,1.0,NDMA_Earthquakes_Guidelines.pdf,29,0.6802,20.55
+8,config_600,What steps are required to institutionalize earthquake safety education in schools and universities?,NDMA_Earthquakes_Guidelines.pdf,55,1,1,1.0,NDMA_Earthquakes_Guidelines.pdf,56,0.6581,18.58
+9,config_600,What is the role of the Central Water Commission (CWC) in flood forecasting across India?,NDMA_Floods_Guidelines.pdf,48,1,1,1.0,NDMA_Floods_Guidelines.pdf,49,0.7454,19.81
+10,config_600,What are the key structural measures used for flood management and mitigating inundation damage?,NDMA_Floods_Guidelines.pdf,58,0,N/A,0.0,NDMA_Floods_Guidelines.pdf,43,0.6857,20.95
+11,config_600,What is Flood Plain Zoning and what is its objective in non-structural flood regulation?,NDMA_Floods_Guidelines.pdf,41,0,N/A,0.0,NDMA_Cyclones_Guidelines.pdf,121,0.7298,20.71
+12,config_600,What causes drainage congestion and water-logging in agricultural and urban flood-prone areas?,NDMA_Floods_Guidelines.pdf,34,1,2,0.5,NDMA_Floods_Guidelines.pdf,60,0.6587,24.23
+13,config_600,What are the four components of the World Bank-assisted National Cyclone Risk Mitigation Project (NCRMP)?,NDMA_Cyclones_Guidelines.pdf,49,1,1,1.0,NDMA_Cyclones_Guidelines.pdf,49,0.7447,21.65
+14,config_600,What operational computing and communication infrastructure is commissioned under the National Disaster Communication Infrastructure (NDCI) for cyclones?,NDMA_Cyclones_Guidelines.pdf,27,1,1,1.0,NDMA_Cyclones_Guidelines.pdf,27,0.7219,21.59
+15,config_600,"How do natural bio-shields, mangroves, and coastal shelterbelts mitigate cyclone and storm surge hazards?",NDMA_Cyclones_Guidelines.pdf,102,1,4,0.25,NDMA_Cyclones_Guidelines.pdf,119,0.6513,21.4
